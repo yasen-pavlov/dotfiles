@@ -1,0 +1,64 @@
+#!/bin/zsh
+
+#### Aliases ####
+
+#alias basic commands
+alias ls='lsd'
+alias l='ls -l'
+alias la='ls -a'
+alias lla='ls -la'
+alias lt='ls --tree'
+alias cat='bat'
+alias less='cless'
+alias cp='xcp'
+alias vim='nvim'
+alias nv='neovide --frame buttonless --multigrid'
+
+# update zshrc
+alias update_profile='source ~/.zshrc'
+
+# fix homebrew pyenv shivs
+alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'
+
+# psgrep
+alias psgrep='ps aux | grep -v grep | grep -i'
+
+# edit zshell config
+alias zshrc='${=EDITOR} ~/.zshrc'
+alias zprofile='${=EDITOR} ~/.zprofile'
+
+#maven
+alias mvnc='mvn clean'
+alias mvnv='mvn verify'
+alias mvncv='mvn clean verify'
+alias mvns='mvn verify -DskipTests'
+alias mvncs='mvn clean verify -DskipTests'
+
+### git
+alias git_pull_master_subfolders='find . -maxdepth 1 -type d \( ! -name . \) -exec bash -c "cd '{}' && git checkout master && git pull" \;'
+
+### tail failsafe output files
+alias tail_tests_output='multitail -Q 1 "*/target/failsafe-reports/*-output.txt"'
+
+### edit scripts
+alias scripts='$EDITOR $SCRIPTS_DIR'
+
+### edit neovim config
+alias nvim_config='$EDITOR $CONFIG_DIR/nvim'
+
+### edit dotfiles
+alias dotfiles='$EDITOR $DOTFILES_DIR'
+
+### edit alacritty config
+alias alacritty_config='$EDITOR $CONFIG_DIR/alacritty/alacritty.yml'
+
+### change gpg yubikey
+alias yubikeyrestart='gpg-connect-agent killagent /bye && gpg-connect-agent "scd serialno" "learn --force" /bye && gpg --card-status'
+
+### set term for ssh sessions
+alias ssh='TERM=xterm-256color ssh'
+
+### tmux
+alias tpm='tmuxp load $CONFIG_DIR/tmux/layouts/main.yaml'
+alias tmuxp_layouts='$EDITOR $CONFIG_DIR/tmux/layouts'
+alias tmux_config='$EDITOR $HOME/.tmux.conf'

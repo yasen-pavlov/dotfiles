@@ -1,0 +1,57 @@
+#!/bin/zsh
+
+### env vars ###
+
+# zsh
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+export ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}
+
+# config files
+export CONFIG_DIR=$XDG_CONFIG_HOME
+
+# Workbench
+export WORKBENCH_DIR="$HOME/Workbench"
+
+# dotfiles
+export DOTFILES_DIR="$WORKBENCH_DIR/Projects/personal/dotfiles"
+
+# scripts
+export SCRIPTS_DIR="$WORKBENCH_DIR/Scripts"
+
+# LANG
+export LANG="en_US.UTF-8"
+
+# PATH
+export PATH="$HOME/.local/bin:/opt/homebrew/opt/python/libexec/bin:$SCRIPTS_DIR:$PATH"
+
+# zsh cache dir
+export ZSH_CACHE_DIR="$HOME/.cache/zsh"
+
+# homebrew
+export HOMEBREW_NO_ENV_HINTS=1
+
+# fix weechat
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+# Preferred editor for local and remote sessions
+export EDITOR='neovide'
+export VISUAL='neovide'
+
+# aws cli
+export AWS_PROFILE=personal
+export SHOW_AWS_PROMPT=false
+
+# maven
+export MAVEN_OPTS="-Dfile.encoding=UTF-8 -Duser.language=en -Duser.region=US --enable-preview"
+
+# go
+export GOPATH="$WORKBENCH_DIR/Playground/go"
+
+# cargo
+source "$HOME/.cargo/env"
+
+# JetBrains Toolbox App
+export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
+
+# neovide
+export NEOVIDE_FRAME=buttonless

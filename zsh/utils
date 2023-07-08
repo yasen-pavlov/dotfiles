@@ -1,0 +1,74 @@
+#!/bin/zsh
+
+### Utils ###
+
+# homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# antidote
+source $HOMEBREW_PREFIX/opt/antidote/share/antidote/antidote.zsh
+antidote load
+export ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BLOCK
+export ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_UNDERLINE
+export ZVM_VISUAL_MODE_CURSOR=$ZVM_CURSOR_UNDERLINE
+
+# Funtoo keychain
+eval $(keychain --eval --noinherit -q)
+
+#broot
+source $CONFIG_DIR/broot/launcher/bash/br
+
+# starship
+eval "$(starship init zsh)"
+
+# gh 1password
+source $CONFIG_DIR/op/plugins.sh
+
+# docker
+source $HOME/.docker/init-zsh.sh || true
+
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# zoxide
+eval "$(zoxide init --cmd cd zsh)"
+
+# ruby
+if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
+    export PATH=/opt/homebrew/opt/ruby/bin:$PATH
+    export PATH=`gem environment gemdir`/bin:$PATH
+fi
+
+# Hombrew command-not-found
+HB_CNF_HANDLER="$(brew --repository)/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
+if [ -f "$HB_CNF_HANDLER" ]; then
+    source "$HB_CNF_HANDLER";
+fi
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(/opt/homebrew/bin/pyenv init -)"
+
+# jenv
+# export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+
+# nodenv
+eval "$(nodenv init -)"
+
+# initialize completions
+compinit
+
+# Fix slowness of pastes with zsh-syntax-highlighting.zsh
+# from: https://gist.github.com/magicdude4eva/2d4748f8ef3e6bf7b1591964c201c1ab
+pasteinit() {
+    OLD_SELF_INSERT=${${(s.:.)widgets[self-insert]}[2,3]}
+    zle -N self-insert url-quote-magic # I wonder if you'd need `.url-quote-magic`?
+}
+
+pastefinish() {
+    zle -N self-insert $OLD_SELF_INSERT
+}
+zstyle :bracketed-paste-magic paste-init pasteinit
+zstyle :bracketed-paste-magic paste-finish pastefinish

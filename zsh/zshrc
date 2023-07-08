@@ -1,0 +1,17 @@
+#!/bin/zsh
+### zsh config ###
+
+### profiling start (comment out to disable)
+#zmodload zsh/zprof
+
+# Load zsh functions
+source $SCRIPTS_DIR/misc/zsh_functions
+
+# Load utils
+source $DOTFILES_DIR/zsh/utils
+
+# Load aliases
+source $DOTFILES_DIR/zsh/aliases
+
+### profiling end (comment out to disable)
+#zprof
