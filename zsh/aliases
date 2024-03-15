@@ -12,7 +12,7 @@ alias cat='bat'
 alias less='cless'
 alias cp='xcp'
 alias vim='nvim'
-alias nv='neovide --frame buttonless --multigrid'
+alias nv='neovide --frame buttonless --title-hidden'
 
 # update zshrc
 alias update_profile='source ~/.zshrc'
@@ -35,6 +35,8 @@ alias mvns='mvn verify -DskipTests'
 alias mvncs='mvn clean verify -DskipTests'
 
 ### git
+alias gpw='git push && gh run watch'
+alias gpsupw='git push --set-upstream origin $(git_current_branch) && gh run watch'
 alias git_pull_master_subfolders='find . -maxdepth 1 -type d \( ! -name . \) -exec bash -c "cd '{}' && git checkout master && git pull" \;'
 
 ### tail failsafe output files

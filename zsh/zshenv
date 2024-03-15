@@ -45,7 +45,9 @@ export SHOW_AWS_PROMPT=false
 export MAVEN_OPTS="-Dfile.encoding=UTF-8 -Duser.language=en -Duser.region=US --enable-preview"
 
 # go
-export GOPATH="$WORKBENCH_DIR/Playground/go"
+export GOBIN="$HOME/.local/bin"
+export GOPATH="$HOME/.go"
+export PATH="$PATH:$GOPATH/bin"
 
 # cargo
 source "$HOME/.cargo/env"
