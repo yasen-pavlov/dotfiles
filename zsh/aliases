@@ -64,3 +64,8 @@ alias ssh='TERM=xterm-256color ssh'
 alias tpm='tmuxp load $CONFIG_DIR/tmux/layouts/main.yaml'
 alias tmuxp_layouts='$EDITOR $CONFIG_DIR/tmux/layouts'
 alias tmux_config='$EDITOR $HOME/.tmux.conf'
+
+### source local aliases
+if [ -f $DOTFILES_DIR/zsh/aliases.local ]; then
+  source $DOTFILES_DIR/zsh/aliases.local
+fi
