@@ -57,3 +57,4 @@ export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
 
 # neovide
 export NEOVIDE_FRAME=buttonless
+export NEOVIDE_TITLE_HIDDEN=1
