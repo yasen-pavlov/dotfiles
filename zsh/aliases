@@ -12,7 +12,7 @@ alias cat='bat'
 alias less='cless'
 alias cp='xcp'
 alias vim='nvim'
-alias nv='neovide --frame buttonless --title-hidden'
+alias nv='neovide'
 
 # update zshrc
 alias update_profile='source ~/.zshrc'

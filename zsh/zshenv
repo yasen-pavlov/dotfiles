@@ -22,7 +22,9 @@ export SCRIPTS_DIR="$WORKBENCH_DIR/Scripts"
 export LANG="en_US.UTF-8"
 
 # PATH
-export PATH="$HOME/.local/bin:/opt/homebrew/opt/python/libexec/bin:$SCRIPTS_DIR:$PATH"
+export PYTHON_BIN="/opt/homebrew/opt/python/libexec/bin"
+export MYSQL_BIN="/opt/homebrew/opt/mysql-client/bin"
+export PATH="$HOME:$PYTHON_BIN:$MYSQL_BIN:$SCRIPTS_DIR:$PATH"
 
 # zsh cache dir
 export ZSH_CACHE_DIR="$HOME/.cache/zsh"
@@ -54,7 +56,3 @@ source "$HOME/.cargo/env"
 
 # JetBrains Toolbox App
 export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
-
-# neovide
-export NEOVIDE_FRAME=buttonless
-export NEOVIDE_TITLE_HIDDEN=1
