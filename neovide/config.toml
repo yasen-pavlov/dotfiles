@@ -1,0 +1,4 @@
+fork = true
+frame = "buttonless"
+tabs = false
+title-hidden = true

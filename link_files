@@ -25,3 +25,9 @@ ln -s $DOTFILES_DIR/tmux/tmux.conf $HOME/.tmux.conf
 
 ## aerospace
 ln -s $DOTFILES_DIR/aerospace/aerospace.toml $XDG_CONFIG_HOME/aerospace/aerospace.toml
+
+### neovide
+ln -s $DOTFILES_DIR/neovide $XDG_CONFIG_HOME/neovide
+
+### lsd
+ln -s $DOTFILES_DIR/lsd $XDG_CONFIG_HOME/lsd
