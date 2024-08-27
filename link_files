@@ -20,14 +20,12 @@ ln -s $DOTFILES_DIR/zsh/zshrc $XDG_CONFIG_HOME/zsh/.zshrc
 ln -s $DOTFILES_DIR/zsh/plugins $XDG_CONFIG_HOME/zsh/.zsh_plugins.txt
 
 ### alacritty
-mkdir $XDG_CONFIG_HOME/alacritty
 ln -s $DOTFILES_DIR/alacritty $XDG_CONFIG_HOME/alacritty
 
 ### tmux
 ln -s $DOTFILES_DIR/tmux/tmux.conf $HOME/.tmux.conf
 
 ## aerospace
-mkdir $XDG_CONFIG_HOME/aerospace
 ln -s $DOTFILES_DIR/aerospace $XDG_CONFIG_HOME/aerospace
 
 ### neovide
