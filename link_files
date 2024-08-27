@@ -3,23 +3,25 @@
 
 # config
 DOTFILES_DIR=$HOME/Workbench/Projects/personal/dotfiles
-CONFIG_HOME=$HOME/.config
 
 ### remove old links
 rm $HOME/.zshenv
-rm -rf $CONFIG_HOME/zsh
-rm -rf $CONFIG_HOME/alacritty
+rm -rf $XDG_CONFIG_HOME/zsh
+rm -rf $XDG_CONFIG_HOME/alacritty
 rm $HOME/.tmux.conf
 
 ### zsh
-mkdir $CONFIG_HOME/zsh
+mkdir $XDG_XDG_CONFIG_HOME/zsh
 ln -s $DOTFILES_DIR/zsh/zshenv $HOME/.zshenv
-ln -s $DOTFILES_DIR/zsh/zshrc $CONFIG_HOME/zsh/.zshrc
-ln -s $DOTFILES_DIR/zsh/plugins $CONFIG_HOME/zsh/.zsh_plugins.txt
+ln -s $DOTFILES_DIR/zsh/zshrc $XDG_CONFIG_HOME/zsh/.zshrc
+ln -s $DOTFILES_DIR/zsh/plugins $XDG_CONFIG_HOME/zsh/.zsh_plugins.txt
 
 ### alacritty
-mkdir $CONFIG_HOME/alacritty
-ln -s $DOTFILES_DIR/alacritty/alacritty.yml $CONFIG_HOME/alacritty/alacritty.yml
+mkdir $XDG_CONFIG_HOME/alacritty
+ln -s $DOTFILES_DIR/alacritty/alacritty.yml $XDG_CONFIG_HOME/alacritty/alacritty.yml
 
 ### tmux
 ln -s $DOTFILES_DIR/tmux/tmux.conf $HOME/.tmux.conf
+
+## aerospace
+ln -s $DOTFILES_DIR/aerospace/aerospace.toml $XDG_CONFIG_HOME/aerospace/aerospace.toml

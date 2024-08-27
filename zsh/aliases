@@ -12,7 +12,7 @@ alias cat='bat'
 alias less='cless'
 alias cp='xcp'
 alias vim='nvim'
-alias nv='neovide'
+alias nv='start_neovide'
 
 # update zshrc
 alias update_profile='source ~/.zshrc'
@@ -53,6 +53,9 @@ alias dotfiles='$EDITOR $DOTFILES_DIR'
 
 ### edit alacritty config
 alias alacritty_config='$EDITOR $CONFIG_DIR/alacritty/alacritty.yml'
+
+### edit aerospace config
+alias aerospace_config='$EDITOR $CONFIG_DIR/aerospace/aerospace.toml'
 
 ### change gpg yubikey
 alias yubikeyrestart='gpg-connect-agent killagent /bye && gpg-connect-agent "scd serialno" "learn --force" /bye && gpg --card-status'

@@ -36,8 +36,8 @@ export HOMEBREW_NO_ENV_HINTS=1
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 # Preferred editor for local and remote sessions
-export EDITOR='neovide'
-export VISUAL='neovide'
+export EDITOR='start_neovide'
+export VISUAL='start_neovide'
 
 # aws cli
 export AWS_PROFILE=personal
