@@ -8,23 +8,27 @@ DOTFILES_DIR=$HOME/Workbench/Projects/personal/dotfiles
 rm $HOME/.zshenv
 rm -rf $XDG_CONFIG_HOME/zsh
 rm -rf $XDG_CONFIG_HOME/alacritty
+rm -rf $XDG_CONFIG_HOME/aerospace
+rm -rf $XDG_CONFIG_HOME/neovide
+rm -rf $XDG_CONFIG_HOME/lsd
 rm $HOME/.tmux.conf
 
 ### zsh
-mkdir $XDG_XDG_CONFIG_HOME/zsh
+mkdir $XDG_CONFIG_HOME/zsh
 ln -s $DOTFILES_DIR/zsh/zshenv $HOME/.zshenv
 ln -s $DOTFILES_DIR/zsh/zshrc $XDG_CONFIG_HOME/zsh/.zshrc
 ln -s $DOTFILES_DIR/zsh/plugins $XDG_CONFIG_HOME/zsh/.zsh_plugins.txt
 
 ### alacritty
 mkdir $XDG_CONFIG_HOME/alacritty
-ln -s $DOTFILES_DIR/alacritty/alacritty.yml $XDG_CONFIG_HOME/alacritty/alacritty.yml
+ln -s $DOTFILES_DIR/alacritty $XDG_CONFIG_HOME/alacritty
 
 ### tmux
 ln -s $DOTFILES_DIR/tmux/tmux.conf $HOME/.tmux.conf
 
 ## aerospace
-ln -s $DOTFILES_DIR/aerospace/aerospace.toml $XDG_CONFIG_HOME/aerospace/aerospace.toml
+mkdir $XDG_CONFIG_HOME/aerospace
+ln -s $DOTFILES_DIR/aerospace $XDG_CONFIG_HOME/aerospace
 
 ### neovide
 ln -s $DOTFILES_DIR/neovide $XDG_CONFIG_HOME/neovide
