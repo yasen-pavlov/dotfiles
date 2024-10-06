@@ -1,0 +1,143 @@
+{
+  "spacing": 8,
+  "modules-left": [
+    "hyprland/workspaces",
+    "hyprland/window"
+  ],
+  "modules-center": [],
+  "modules-right": [
+    "mpris",
+    "mpd",
+    "gamemode",
+    "wireplumber",
+    "idle_inhibitor",
+    "cpu",
+    "memory",
+    "temperature",
+    "hyprland/language",
+    "custom/weather",
+    "clock",
+    "tray",
+    "custom/power"
+  ],
+  "mpris": {
+    "format": "DEFAULT: {player_icon} {dynamic}",
+    "format-paused": "DEFAULT: {status_icon} <i>{dynamic}</i>",
+    "player-icons": {
+      "default": "▶",
+      "mpv": "🎵"
+    },
+    "status-icons": {
+      "paused": "⏸"
+    }
+  },
+  "mpd": {
+    "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
+    "format-disconnected": "Disconnected ",
+    "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+    "unknown-tag": "N/A",
+    "interval": 5,
+    "consume-icons": {
+      "on": " "
+    },
+    "random-icons": {
+      "off": "<span color=\"#f53c3c\"></span> ",
+      "on": " "
+    },
+    "repeat-icons": {
+      "on": " "
+    },
+    "single-icons": {
+      "on": "1 "
+    },
+    "state-icons": {
+      "paused": "",
+      "playing": ""
+    },
+    "tooltip-format": "MPD (connected)",
+    "tooltip-format-disconnected": "MPD (disconnected)"
+  },
+  "wireplumber": {
+    "format": "{volume}% {icon} ",
+    "format-muted": " ",
+    "on-click": "pavucontrol-qt",
+    "format-icons": [
+      "",
+      "",
+      ""
+    ]
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
+  },
+  "tray": {
+    "spacing": 10
+  },
+  "clock": {
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format-alt": "{:%Y-%m-%d}"
+  },
+  "cpu": {
+    "format": "{usage}%  ",
+    "tooltip": false,
+    "on-click": "hyprctl dispatch 'exec [float; size 1400 1000] alacritty -e sh -c \"btop\"'"
+  },
+  "memory": {
+    "format": "{}%  ",
+    "on-click": "hyprctl dispatch 'exec [float; size 1400 1000] alacritty -e sh -c \"btop\"'"
+  },
+  "temperature": {
+    "critical-threshold": 80,
+    "format": "{temperatureC}°C {icon}",
+    "on-click": "hyprctl dispatch 'exec [float; size 1400 1000] alacritty -e sh -c \"btop\"'",
+    "format-icons": [
+      " ",
+      " ",
+      " "
+    ]
+  },
+  "custom/power": {
+    "class": "power",
+    "format": "⏻  ",
+    "tooltip": false,
+    "menu": "on-click",
+    "menu-file": "~/.config/waybar/power_menu.xml",
+    "menu-actions": {
+      "shutdown": "shutdown -h now",
+      "reboot": "reboot",
+      "suspend": "systemctl suspend"
+    }
+  },
+  "custom/weather": {
+    "class": "weather",
+    "format": "{}°",
+    "tooltip": true,
+    "interval": 3600,
+    "exec": "wttrbar",
+    "return-type": "json"
+  },
+  "hyprland/workspaces": {
+    "format": "{icon}  {windows}",
+    "format-window-separator": "  ",
+    "window-rewrite-default": "",
+    "window-rewrite": {
+      "title<.*youtube.*>": "",
+      "class<firefox>": "",
+      "class<firefox> title<.*github.*>": "",
+      "class<Alacritty>": "",
+      "class<Alacritty> title<nvim>": "",
+      "class<neovide>": "",
+      "title<Spotify Premium>": "",
+      "class<org.telegram.desktop>": "",
+      "class<discord>": "",
+      "class<steam>": "",
+      "class<thunderbird>": "",
+      "class<Todoist>": "",
+      "class<Notion>": ""
+    }
+  }
+}

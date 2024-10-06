@@ -12,6 +12,7 @@ rm -rf $XDG_CONFIG_HOME/aerospace
 rm -rf $XDG_CONFIG_HOME/neovide
 rm -rf $XDG_CONFIG_HOME/lsd
 rm -rf $XDG_CONFIG_HOME/hypr
+rm -rf $XDG_CONFIG_HOME/waybar
 rm $HOME/.tmux.conf
 
 ### zsh
@@ -37,3 +38,6 @@ ln -s $DOTFILES_DIR/lsd $XDG_CONFIG_HOME/lsd
 
 ### hypr
 ln -s $DOTFILES_DIR/hypr $XDG_CONFIG_HOME/hypr
+
+### waybar
+ln -s $DOTFILES_DIR/waybar $XDG_CONFIG_HOME/waybar
