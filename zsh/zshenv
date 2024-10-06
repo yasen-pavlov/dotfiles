@@ -4,6 +4,9 @@
 
 # zsh
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_DATA_HOME=$HOME/.local/share
+export XDG_STATE_HOME=$HOME/.local/state
 export ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}
 
 # config files
@@ -29,15 +32,9 @@ export PATH="$HOME:$PYTHON_BIN:$MYSQL_BIN:$SCRIPTS_DIR:$PATH"
 # zsh cache dir
 export ZSH_CACHE_DIR="$HOME/.cache/zsh"
 
-# homebrew
-export HOMEBREW_NO_ENV_HINTS=1
-
-# fix weechat
-export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
-
 # Preferred editor for local and remote sessions
-export EDITOR='start_neovide'
-export VISUAL='start_neovide'
+export EDITOR='nvim'
+export VISUAL='neovide'
 
 # aws cli
 export AWS_PROFILE=personal
@@ -50,9 +47,6 @@ export MAVEN_OPTS="-Dfile.encoding=UTF-8 -Duser.language=en -Duser.region=US --e
 export GOBIN="$HOME/.local/bin"
 export GOPATH="$HOME/.go"
 export PATH="$PATH:$GOPATH/bin"
-
-# cargo
-source "$HOME/.cargo/env"
 
 # JetBrains Toolbox App
 export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"

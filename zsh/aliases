@@ -1,7 +1,4 @@
-#!/bin/zsh
-
-#### Aliases ####
-
+#!/bin/zsh ### Aliases ####
 #alias basic commands
 alias ls='lsd'
 alias l='ls -l'
@@ -12,10 +9,10 @@ alias cat='bat'
 alias less='cless'
 alias cp='xcp'
 alias vim='nvim'
-alias nv='start_neovide'
+alias nv='neovide'
 
 # update zshrc
-alias update_profile='source ~/.zshrc'
+alias update_profile='source ~/.config/zsh/.zshrc && source ~/.zshenv'
 
 # fix homebrew pyenv shivs
 alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'
@@ -52,10 +49,16 @@ alias nvim_config='$EDITOR $CONFIG_DIR/nvim'
 alias dotfiles='$EDITOR $DOTFILES_DIR'
 
 ### edit alacritty config
-alias alacritty_config='$EDITOR $CONFIG_DIR/alacritty/alacritty.yml'
+alias alacritty_config='$EDITOR $CONFIG_DIR/alacritty/alacritty.toml'
 
-### edit aerospace config
-alias aerospace_config='$EDITOR $CONFIG_DIR/aerospace/aerospace.toml'
+### hyprland config
+alias hyprland_config='$EDITOR $CONFIG_DIR/hypr'
+
+### reload waybar config
+alias reload_waybar='pkill waybar && hyprctl dispatch exec waybar'
+
+### waybar config
+alias waybar_config='$EDITOR $CONFIG_DIR/waybar && reload_waybar'
 
 ### change gpg yubikey
 alias yubikeyrestart='gpg-connect-agent killagent /bye && gpg-connect-agent "scd serialno" "learn --force" /bye && gpg --card-status'
@@ -67,6 +70,25 @@ alias ssh='TERM=xterm-256color ssh'
 alias tpm='tmuxp load $CONFIG_DIR/tmux/layouts/main.yaml'
 alias tmuxp_layouts='$EDITOR $CONFIG_DIR/tmux/layouts'
 alias tmux_config='$EDITOR $HOME/.tmux.conf'
+
+### bat
+
+# use bat to colorize --help 
+alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+
+# use bat to format ripgrep output
+alias rg=batgrep
+
+# use batman instead of man
+alias man=batman
+
+# use bat to tail logs
+alias ftail='tail -f $1 | bat --paging=never -l log'
+
+# use bat for journalctl
+alias jctl='SYSTEMD_COLORS="false" SYSTEMD_PAGERSECURE="true" SYSTEMD_PAGER="bat -l syslog -p" journalctl'
+
 
 ### source local aliases
 if [ -f $DOTFILES_DIR/zsh/aliases.local ]; then

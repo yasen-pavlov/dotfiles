@@ -2,21 +2,17 @@
 
 ### Utils ###
 
-# homebrew
-eval "$(/opt/homebrew/bin/brew shellenv)"
-FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-
 # antidote
-source $HOMEBREW_PREFIX/opt/antidote/share/antidote/antidote.zsh
+source /usr/share/zsh-antidote/antidote.zsh
 antidote load
 export ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BLOCK
 export ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_UNDERLINE
 export ZVM_VISUAL_MODE_CURSOR=$ZVM_CURSOR_UNDERLINE
 
-# Funtoo keychain
-eval $(keychain --eval --noinherit -q)
+# keychain
+eval $(keychain --eval --quiet)
 
-#broot
+# broot
 source $CONFIG_DIR/broot/launcher/bash/br
 
 # starship
@@ -25,31 +21,16 @@ eval "$(starship init zsh)"
 # gh 1password
 source $CONFIG_DIR/op/plugins.sh
 
-# docker
-source $HOME/.docker/init-zsh.sh || true
-
 # fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
 
 # zoxide
 eval "$(zoxide init --cmd cd zsh)"
 
-# ruby
-if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
-    export PATH=/opt/homebrew/opt/ruby/bin:$PATH
-    export PATH=`gem environment gemdir`/bin:$PATH
-fi
-
-# Hombrew command-not-found
-HB_CNF_HANDLER="$(brew --repository)/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
-if [ -f "$HB_CNF_HANDLER" ]; then
-    source "$HB_CNF_HANDLER";
-fi
-
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(/opt/homebrew/bin/pyenv init -)"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
 # jenv
 # export PATH="$HOME/.jenv/bin:$PATH"
