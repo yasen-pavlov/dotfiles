@@ -32,10 +32,6 @@ export PATH="$HOME:$PYTHON_BIN:$MYSQL_BIN:$SCRIPTS_DIR:$PATH"
 # zsh cache dir
 export ZSH_CACHE_DIR="$HOME/.cache/zsh"
 
-# Preferred editor for local and remote sessions
-export EDITOR='nvim'
-export VISUAL='neovide'
-
 # aws cli
 export AWS_PROFILE=personal
 export SHOW_AWS_PROMPT=false
@@ -48,5 +44,29 @@ export GOBIN="$HOME/.local/bin"
 export GOPATH="$HOME/.go"
 export PATH="$PATH:$GOPATH/bin"
 
-# JetBrains Toolbox App
-export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
+###os specific
+
+# linux
+if [[ $OSTYPE == 'linux-gnu' ]]; then
+ 
+  # Preferred editor for local and remote sessions
+  export EDITOR='nvim'
+  export VISUAL='neovide'
+
+# macos
+elif [[ $OSTYPE == 'darwin'* ]]; then
+
+  # homebrew
+  export HOMEBREW_NO_ENV_HINTS=1
+  
+  # fix weechat
+  export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+  # Preferred editor for local and remote sessions
+  export EDITOR='start_neovide'
+  export VISUAL='start_neovide'
+ 
+  # JetBrains Toolbox App
+  export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
+
+fi

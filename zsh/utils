@@ -2,9 +2,52 @@
 
 ### Utils ###
 
-# antidote
-source /usr/share/zsh-antidote/antidote.zsh
-antidote load
+###os specific
+
+# linux
+if [[ $OSTYPE == 'linux-gnu' ]]; then
+ 
+  # antidote
+  source /usr/share/zsh-antidote/antidote.zsh
+  antidote load
+
+  # fzf
+  source <(fzf --zsh)
+
+  # pyenv
+  export PYENV_ROOT="$HOME/.pyenv"
+  [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
+
+# macos
+elif [[ $OSTYPE == 'darwin'* ]]; then
+ 
+  # antidote
+  source $HOMEBREW_PREFIX/opt/antidote/share/antidote/antidote.zsh
+  antidote load
+
+  # fzf
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+  # ruby
+  if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
+    export PATH=/opt/homebrew/opt/ruby/bin:$PATH
+    export PATH=`gem environment gemdir`/bin:$PATH
+  fi
+
+  # Homebrew command-not-found
+  HB_CNF_HANDLER="$(brew --repository)/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
+  if [ -f "$HB_CNF_HANDLER" ]; then
+    source "$HB_CNF_HANDLER";
+  fi
+
+  # pyenv
+  export PYENV_ROOT="$HOME/.pyenv"
+  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(/opt/homebrew/bin/pyenv init -)"
+
+fi
+
 export ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BLOCK
 export ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_UNDERLINE
 export ZVM_VISUAL_MODE_CURSOR=$ZVM_CURSOR_UNDERLINE
@@ -21,16 +64,8 @@ eval "$(starship init zsh)"
 # gh 1password
 source $CONFIG_DIR/op/plugins.sh
 
-# fzf
-source <(fzf --zsh)
-
 # zoxide
 eval "$(zoxide init --cmd cd zsh)"
-
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
 
 # jenv
 # export PATH="$HOME/.jenv/bin:$PATH"
@@ -43,7 +78,6 @@ eval "$(nodenv init -)"
 compinit
 
 # Fix slowness of pastes with zsh-syntax-highlighting.zsh
-# from: https://gist.github.com/magicdude4eva/2d4748f8ef3e6bf7b1591964c201c1ab
 pasteinit() {
     OLD_SELF_INSERT=${${(s.:.)widgets[self-insert]}[2,3]}
     zle -N self-insert url-quote-magic # I wonder if you'd need `.url-quote-magic`?

@@ -4,40 +4,56 @@
 # config
 DOTFILES_DIR=$HOME/Workbench/Projects/personal/dotfiles
 
-### remove old links
+### zsh
 rm $HOME/.zshenv
 rm -rf $XDG_CONFIG_HOME/zsh
-rm -rf $XDG_CONFIG_HOME/alacritty
-rm -rf $XDG_CONFIG_HOME/aerospace
-rm -rf $XDG_CONFIG_HOME/neovide
-rm -rf $XDG_CONFIG_HOME/lsd
-rm -rf $XDG_CONFIG_HOME/hypr
-rm -rf $XDG_CONFIG_HOME/waybar
-rm $HOME/.tmux.conf
-
-### zsh
 mkdir $XDG_CONFIG_HOME/zsh
 ln -s $DOTFILES_DIR/zsh/zshenv $HOME/.zshenv
 ln -s $DOTFILES_DIR/zsh/zshrc $XDG_CONFIG_HOME/zsh/.zshrc
 ln -s $DOTFILES_DIR/zsh/plugins $XDG_CONFIG_HOME/zsh/.zsh_plugins.txt
 
 ### alacritty
-ln -s $DOTFILES_DIR/alacritty $XDG_CONFIG_HOME/alacritty
+rm -rf $XDG_CONFIG_HOME/alacritty
+mkdir $XDG_CONFIG_HOME/alacritty
+ln -s $DOTFILES_DIR/alacritty/alacritty.toml $XDG_CONFIG_HOME/alacritty/alacritty.toml
+ln -s $DOTFILES_DIR/alacritty/themes $XDG_CONFIG_HOME/alacritty/themes
 
 ### tmux
+rm $HOME/.tmux.conf
 ln -s $DOTFILES_DIR/tmux/tmux.conf $HOME/.tmux.conf
 
-## aerospace
-ln -s $DOTFILES_DIR/aerospace $XDG_CONFIG_HOME/aerospace
-
 ### neovide
+rm -rf $XDG_CONFIG_HOME/neovide
 ln -s $DOTFILES_DIR/neovide $XDG_CONFIG_HOME/neovide
 
 ### lsd
+rm -rf $XDG_CONFIG_HOME/lsd
 ln -s $DOTFILES_DIR/lsd $XDG_CONFIG_HOME/lsd
 
-### hypr
-ln -s $DOTFILES_DIR/hypr $XDG_CONFIG_HOME/hypr
+###os specific
 
-### waybar
-ln -s $DOTFILES_DIR/waybar $XDG_CONFIG_HOME/waybar
+# linux
+if [[ $OSTYPE == 'linux-gnu' ]]; then
+  
+  # alacritty
+  ln -s $DOTFILES_DIR/alacritty/linux.toml $XDG_CONFIG_HOME/alacritty/linux.toml
+
+  ### hypr
+  rm -rf $XDG_CONFIG_HOME/hypr
+  ln -s $DOTFILES_DIR/hypr $XDG_CONFIG_HOME/hypr
+
+  ### waybar
+  rm -rf $XDG_CONFIG_HOME/waybar
+  ln -s $DOTFILES_DIR/waybar $XDG_CONFIG_HOME/waybar
+
+# macos
+elif [[ $OSTYPE == 'darwin'* ]]; then
+  
+  # alacritty
+  ln -s $DOTFILES_DIR/alacritty/macos.toml $XDG_CONFIG_HOME/alacritty/macos.toml
+
+  ## aerospace
+  rm -rf $XDG_CONFIG_HOME/aerospace
+  ln -s $DOTFILES_DIR/aerospace $XDG_CONFIG_HOME/aerospace
+
+fi

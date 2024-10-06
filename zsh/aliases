@@ -1,4 +1,7 @@
-#!/bin/zsh ### Aliases ####
+#!/bin/zsh 
+
+### Aliases ####
+
 #alias basic commands
 alias ls='lsd'
 alias l='ls -l'
@@ -9,7 +12,6 @@ alias cat='bat'
 alias less='cless'
 alias cp='xcp'
 alias vim='nvim'
-alias nv='neovide'
 
 # update zshrc
 alias update_profile='source ~/.config/zsh/.zshrc && source ~/.zshenv'
@@ -51,15 +53,6 @@ alias dotfiles='$EDITOR $DOTFILES_DIR'
 ### edit alacritty config
 alias alacritty_config='$EDITOR $CONFIG_DIR/alacritty/alacritty.toml'
 
-### hyprland config
-alias hyprland_config='$EDITOR $CONFIG_DIR/hypr'
-
-### reload waybar config
-alias reload_waybar='pkill waybar && hyprctl dispatch exec waybar'
-
-### waybar config
-alias waybar_config='$EDITOR $CONFIG_DIR/waybar && reload_waybar'
-
 ### change gpg yubikey
 alias yubikeyrestart='gpg-connect-agent killagent /bye && gpg-connect-agent "scd serialno" "learn --force" /bye && gpg --card-status'
 
@@ -86,11 +79,33 @@ alias man=batman
 # use bat to tail logs
 alias ftail='tail -f $1 | bat --paging=never -l log'
 
-# use bat for journalctl
-alias jctl='SYSTEMD_COLORS="false" SYSTEMD_PAGERSECURE="true" SYSTEMD_PAGER="bat -l syslog -p" journalctl'
+###os specific
 
+# linux
+if [[ $OSTYPE == 'linux-gnu' ]]; then
+ 
+  ### start neovide
+  alias nv='neovide'
 
-### source local aliases
-if [ -f $DOTFILES_DIR/zsh/aliases.local ]; then
-  source $DOTFILES_DIR/zsh/aliases.local
+  ### hyprland config
+  alias hyprland_config='$EDITOR $CONFIG_DIR/hypr'
+
+  ### reload waybar config
+  alias reload_waybar='pkill waybar && hyprctl dispatch exec waybar'
+
+  ### waybar config
+  alias waybar_config='$EDITOR $CONFIG_DIR/waybar && reload_waybar'
+
+  ### use bat for journalctl
+  alias jctl='SYSTEMD_COLORS="false" SYSTEMD_PAGERSECURE="true" SYSTEMD_PAGER="bat -l syslog -p" journalctl'
+
+# macos
+elif [[ $OSTYPE == 'darwin'* ]]; then
+ 
+  ### start neovide
+  alias nv='start_neovide'
+
+  ### edit aerospace config
+  alias aerospace_config='$EDITOR $CONFIG_DIR/aerospace/aerospace.toml'
+
 fi
