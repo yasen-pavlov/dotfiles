@@ -71,7 +71,7 @@ alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 
 # use bat to format ripgrep output
-alias rg=batgrep
+alias bgr=batgrep
 
 # use batman instead of man
 alias man=batman
