@@ -11,9 +11,6 @@ if [[ $OSTYPE == 'linux-gnu' ]]; then
   source /usr/share/zsh-antidote/antidote.zsh
   antidote load
 
-  # fzf
-  source <(fzf --zsh)
-
   # pyenv
   export PYENV_ROOT="$HOME/.pyenv"
   [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
@@ -29,9 +26,6 @@ elif [[ $OSTYPE == 'darwin'* ]]; then
   # antidote
   source $HOMEBREW_PREFIX/opt/antidote/share/antidote/antidote.zsh
   antidote load
-
-  # fzf
-  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
   # ruby
   if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
@@ -52,9 +46,13 @@ elif [[ $OSTYPE == 'darwin'* ]]; then
 
 fi
 
+# zsh vim cursor settings
 export ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BLOCK
 export ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_UNDERLINE
 export ZVM_VISUAL_MODE_CURSOR=$ZVM_CURSOR_UNDERLINE
+
+# fzf
+source <(fzf --zsh)
 
 # keychain
 eval $(keychain --eval --quiet)

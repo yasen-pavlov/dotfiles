@@ -60,7 +60,7 @@
   "wireplumber": {
     "format": "{volume}% {icon} ",
     "format-muted": " ",
-    "on-click": "pavucontrol-qt",
+    "on-click": "pwvucontrol",
     "format-icons": [
       "",
       "",
