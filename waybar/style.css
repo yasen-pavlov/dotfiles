@@ -1,7 +1,8 @@
 /*  General */
 
 window#waybar {
-  /* use rgba(0, 0, 0, 0.2) for a semi transparent background */
+  /* uncomment below for a semi transparent background */
+  /* background: rgba(0, 0, 0, 0.2); */
   background: transparent;
   color: #ffffff;
   transition-property: background-color;
@@ -70,6 +71,7 @@ window#waybar.hidden {
   border-radius: 12px;
   border: 0px;
   color: #ffffff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
 }
 
 window#waybar.empty #window {
@@ -103,13 +105,15 @@ button:hover {
 #custom-power,
 #custom-weather,
 #language,
-#mpd {
+#mpd,
+#mpris {
   /* uncomment below for rounded boxes around modules */
   /* margin: 4px 0px 4px 0px; */
   /* padding: 5px 10px 5px 10px; */
   /* background-color: #212121; */
   /* border-radius: 12px; */
   color: #ffffff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
 }
 
 #clock {
