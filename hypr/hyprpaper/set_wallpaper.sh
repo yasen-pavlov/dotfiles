@@ -3,16 +3,12 @@
 set_wallpaper() {
 	wallpaper_dir="$HOME/Pictures/Wallpapers"
 
-	# shellcheck disable=SC2206
-	files=($wallpaper_dir/*)
+	files=("$wallpaper_dir"/*)
 
-	random_file=("${files[RANDOM % ${#files[@]}]}")
-	# shellcheck disable=SC2128
-	random_file_name=$(basename "$random_file")
+	random_file="${files[RANDOM % ${#files[@]}]}"
 
-	# shellcheck disable=SC2128
 	hyprctl hyprpaper wallpaper ",$random_file"
-	sed -i "s|\(path = \).*|\1~/Pictures/Wallpapers/$random_file_name|" "$HOME"/.config/hypr/hyprlock.conf
+	ln -sf "$random_file" "$HOME"/Pictures/current_wallpaper
 }
 
 set_wallpaper
