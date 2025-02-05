@@ -10,7 +10,6 @@ alias lla='ls -la'
 alias lt='ls --tree'
 alias cat='bat'
 alias less='cless'
-alias cp='xcp'
 alias vim='nvim'
 
 # update zshrc

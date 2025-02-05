@@ -129,7 +129,9 @@
       "class<firefox>": "",
       "class<firefox> title<.*github.*>": "",
       "class<Alacritty>": "",
+      "class<foot>": "",
       "class<Alacritty> title<nvim>": "",
+      "class<foot> title<nvim>": "",
       "class<neovide>": "",
       "title<Spotify Premium>": "",
       "class<org.telegram.desktop>": "",
@@ -137,7 +139,8 @@
       "class<steam>": "",
       "class<thunderbird>": "",
       "class<Todoist>": "",
-      "class<Notion>": ""
+      "class<Notion>": "",
+      "class<obsidian>": ""
     }
   }
 }

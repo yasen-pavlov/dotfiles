@@ -44,6 +44,10 @@ export GOBIN="$HOME/.local/bin"
 export GOPATH="$HOME/.go"
 export PATH="$PATH:$GOPATH/bin"
 
+# cuda
+export CUDA_BIN="/opt/cuda/bin"
+export PATH="$PATH:$CUDA_BIN"
+
 ###os specific
 
 # linux
