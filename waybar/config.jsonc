@@ -84,16 +84,16 @@
   "cpu": {
     "format": "{usage}%  ",
     "tooltip": false,
-    "on-click": "hyprctl dispatch 'exec [float; size 1400 1000] alacritty -e sh -c \"btop\"'"
+    "on-click": "hyprctl dispatch 'exec [float; size 1400 1000] foot -e sh -c \"btop\"'"
   },
   "memory": {
     "format": "{}%  ",
-    "on-click": "hyprctl dispatch 'exec [float; size 1400 1000] alacritty -e sh -c \"btop\"'"
+    "on-click": "hyprctl dispatch 'exec [float; size 1400 1000] foot -e sh -c \"btop\"'"
   },
   "temperature": {
     "critical-threshold": 80,
     "format": "{temperatureC}°C {icon}",
-    "on-click": "hyprctl dispatch 'exec [float; size 1400 1000] alacritty -e sh -c \"btop\"'",
+    "on-click": "hyprctl dispatch 'exec [float; size 1400 1000] foot -e sh -c \"btop\"'",
     "format-icons": [
       " ",
       " ",
