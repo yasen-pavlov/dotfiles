@@ -30,6 +30,11 @@ ln -s $DOTFILES_DIR/neovide $XDG_CONFIG_HOME/neovide
 rm -rf $XDG_CONFIG_HOME/lsd
 ln -s $DOTFILES_DIR/lsd $XDG_CONFIG_HOME/lsd
 
+
+### yazi
+rm -rf $XDG_CONFIG_HOME/yazi
+ln -s $DOTFILES_DIR/yazi $XDG_CONFIG_HOME/yazi
+
 ###os specific
 
 # linux

@@ -14,9 +14,10 @@
     "cpu",
     "memory",
     "temperature",
-    "hyprland/language",
-    "custom/weather",
     "clock",
+    "custom/todoist",
+    "custom/weather",
+    "hyprland/language",
     "tray",
     "custom/power"
   ],
@@ -142,5 +143,13 @@
       "class<Notion>": "",
       "class<obsidian>": ""
     }
+  },
+  "custom/todoist": {
+    "exec": "~/.config/waybar/scripts/waybar-todoist.py",
+    "interval": 300,
+    "return-type": "json",
+    "tooltip": true,
+    "format": "{text}",
+    "on-click": "xdg-open https://todoist.com/app/today"
   }
 }

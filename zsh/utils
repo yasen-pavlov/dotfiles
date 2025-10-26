@@ -76,6 +76,9 @@ eval "$(jenv init -)"
 # nodenv
 eval "$(nodenv init -)"
 
+# atuin
+eval "$(atuin init zsh)"
+
 # initialize completions
 compinit
 

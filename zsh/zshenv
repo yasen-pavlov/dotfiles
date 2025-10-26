@@ -42,7 +42,7 @@ export MAVEN_OPTS="-Dfile.encoding=UTF-8 -Duser.language=en -Duser.region=US --e
 # go
 export GOBIN="$HOME/.local/bin"
 export GOPATH="$HOME/.go"
-export PATH="$PATH:$GOPATH/bin"
+export PATH="$PATH:$GOPATH/bin:$GOBIN"
 
 # cuda
 export CUDA_BIN="/opt/cuda/bin"
