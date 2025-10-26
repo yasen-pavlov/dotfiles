@@ -11,6 +11,9 @@ alias lt='ls --tree'
 alias cat='bat'
 alias less='cless'
 alias vim='nvim'
+alias du='dust'
+alias df='duf'
+alias ps='procs'
 
 # update zshrc
 alias update_profile='source ~/.config/zsh/.zshrc && source ~/.zshenv'

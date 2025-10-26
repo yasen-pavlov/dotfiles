@@ -80,6 +80,8 @@ alt-q = 'exec-and-forget alacritty'
 alt-b = 'exec-and-forget /Applications/Firefox.app/Contents/MacOS/firefox'
 alt-shift-b = 'exec-and-forget /Applications/Firefox.app/Contents/MacOS/firefox -private-window'
 
+alt-c = 'close'
+
 cmd-h = [] # Disable "hide application"
 cmd-alt-h = [] # Disable "hide others"
 
