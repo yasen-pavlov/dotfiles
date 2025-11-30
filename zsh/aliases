@@ -14,6 +14,7 @@ alias vim='nvim'
 alias du='dust'
 alias df='duf'
 alias ps='procs'
+alias sudo='sudo '  
 
 # update zshrc
 alias update_profile='source ~/.config/zsh/.zshrc && source ~/.zshenv'
@@ -99,7 +100,7 @@ if [[ $OSTYPE == 'linux-gnu' ]]; then
   alias waybar_config='$EDITOR $CONFIG_DIR/waybar && reload_waybar'
 
   ### use bat for journalctl
-  alias jctl='sudo SYSTEMD_PAGERSECURE="true" SYSTEMD_PAGER="bat -l syslog -p" journalctl'
+  alias jctl='SYSTEMD_COLORS="false" SYSTEMD_PAGERSECURE="true" SYSTEMD_PAGER="bat -l syslog -p" journalctl'
 
 # macos
 elif [[ $OSTYPE == 'darwin'* ]]; then

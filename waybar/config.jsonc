@@ -136,9 +136,10 @@
       "class<neovide>": "",
       "title<Spotify Premium>": "",
       "class<org.telegram.desktop>": "",
+      "class<com.ayugram.desktop>": "",
       "class<discord>": "",
       "class<steam>": "",
-      "class<thunderbird>": "",
+      "class<org.mozilla.Thunderbird>": "",
       "class<Todoist>": "",
       "class<Notion>": "",
       "class<obsidian>": ""
