@@ -108,7 +108,7 @@
     "menu": "on-click",
     "menu-file": "~/.config/waybar/power_menu.xml",
     "menu-actions": {
-      "shutdown": "shutdown -h now",
+      "shutdown": "systemctl poweroff",
       "reboot": "reboot",
       "suspend": "systemctl suspend"
     }

@@ -1,21 +1,25 @@
 #!/bin/bash
+set -euo pipefail
 
-preload_wallpapers() {
-	wallpaper_dir="$HOME/Pictures/Wallpapers"
+wallpaper_dir="$HOME/Pictures/Wallpapers"
+out="$HOME/.config/hypr/hyprpaper/hyprpaper-preload.conf"
 
-	wallpapers=$(find "$wallpaper_dir" -type f)
+mkdir -p "$(dirname "$out")"
 
-	for wallpaper in $wallpapers; do
+mapfile -d '' imgs < <(
+	find "$wallpaper_dir" -type f \
+		\( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) \
+		-print0
+)
 
-		# shellcheck disable=SC2027
-		preload_string+="preload = "$wallpaper"\n"
-		wallpaper_string+="wallpaper = , $wallpaper\n"
+tmp="$(mktemp)"
+{
+	echo "# GENERATED — do not edit"
+	for wp in "${imgs[@]}"; do
+		printf 'preload = %s\n' "$wp"
 	done
+} >"$tmp"
 
-	echo -en "$preload_string$wallpaper_string" >~/.config/hypr/hyprpaper.conf
-}
+mv "$tmp" "$out"
 
-preload_wallpapers
-
-killall hyprpaper
-hyprctl dispatch exec hyprpaper
+systemctl --user restart hyprpaper
