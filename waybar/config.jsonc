@@ -92,6 +92,7 @@
     "on-click": "hyprctl dispatch 'exec [float; size 1400 1000] foot -e sh -c \"btop\"'"
   },
   "temperature": {
+    "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
     "critical-threshold": 80,
     "format": "{temperatureC}°C {icon}",
     "on-click": "hyprctl dispatch 'exec [float; size 1400 1000] foot -e sh -c \"btop\"'",
