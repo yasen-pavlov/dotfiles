@@ -32,6 +32,9 @@ export PATH="$HOME:$PYTHON_BIN:$MYSQL_BIN:$SCRIPTS_DIR:$PATH"
 # zsh cache dir
 export ZSH_CACHE_DIR="$HOME/.cache/zsh"
 
+# tmux
+export ZSH_TMUX_CONFIG="$XDG_CONFIG_HOME/tmux/tmux.conf"
+
 # aws cli
 export AWS_PROFILE=personal
 export SHOW_AWS_PROMPT=false
@@ -47,6 +50,9 @@ export PATH="$PATH:$GOPATH/bin:$GOBIN"
 # cuda
 export CUDA_BIN="/opt/cuda/bin"
 export PATH="$PATH:$CUDA_BIN"
+
+# SonarQube CLI
+export PATH="$HOME/.local/share/sonarqube-cli/bin:$PATH"
 
 ###os specific
 

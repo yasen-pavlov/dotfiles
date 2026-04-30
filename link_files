@@ -19,12 +19,16 @@ ln -s $DOTFILES_DIR/alacritty/alacritty.toml $XDG_CONFIG_HOME/alacritty/alacritt
 ln -s $DOTFILES_DIR/alacritty/themes $XDG_CONFIG_HOME/alacritty/themes
 
 ### foot
-rm -rf -rf $XDG_CONFIG_HOME/foot
+rm -rf $XDG_CONFIG_HOME/foot
 ln -s $DOTFILES_DIR/foot $XDG_CONFIG_HOME/foot
 
 ### tmux
-rm $HOME/.tmux.conf
-ln -s $DOTFILES_DIR/tmux/tmux.conf $HOME/.tmux.conf
+rm -rf $XDG_CONFIG_HOME/tmux
+mkdir $XDG_CONFIG_HOME/tmux
+ln -s $DOTFILES_DIR/tmux/tmux.conf $XDG_CONFIG_HOME/tmux/tmux.conf
+ln -s $DOTFILES_DIR/tmux/layouts $XDG_CONFIG_HOME/tmux/layouts
+git clone https://github.com/tmux-plugins/tpm $XDG_CONFIG_HOME/tmux/plugins/tpm
+$XDG_CONFIG_HOME/tmux/plugins/tpm/bin/install_plugins
 
 ### neovide
 rm -rf $XDG_CONFIG_HOME/neovide

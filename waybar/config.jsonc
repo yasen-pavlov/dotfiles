@@ -143,7 +143,9 @@
       "class<org.mozilla.Thunderbird>": "",
       "class<Todoist>": "",
       "class<Notion>": "",
-      "class<obsidian>": ""
+      "class<obsidian>": "",
+      "class<foot> title<weechat>": "󰭹",
+      "class<Element>": "󰊌"
     }
   },
   "custom/todoist": {

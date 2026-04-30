@@ -65,7 +65,7 @@ alias ssh='TERM=xterm-256color ssh'
 ### tmux
 alias tpm='tmuxp load $CONFIG_DIR/tmux/layouts/main.yaml'
 alias tmuxp_layouts='$EDITOR $CONFIG_DIR/tmux/layouts'
-alias tmux_config='$EDITOR $HOME/.tmux.conf'
+alias tmux_config='$EDITOR $CONFIG_DIR/tmux/tmux.conf'
 
 ### bat
 
