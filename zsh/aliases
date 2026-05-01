@@ -112,3 +112,6 @@ elif [[ $OSTYPE == 'darwin'* ]]; then
   alias aerospace_config='$EDITOR $CONFIG_DIR/aerospace/aerospace.toml'
 
 fi
+
+### machine-local aliases (not tracked) ###
+[ -r "$XDG_CONFIG_HOME/zsh/aliases.local" ] && source "$XDG_CONFIG_HOME/zsh/aliases.local"

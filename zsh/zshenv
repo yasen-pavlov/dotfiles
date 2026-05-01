@@ -80,3 +80,6 @@ elif [[ $OSTYPE == 'darwin'* ]]; then
   export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
 
 fi
+
+### machine-local overrides (not tracked) ###
+[ -r "$XDG_CONFIG_HOME/zsh/zshenv.local" ] && source "$XDG_CONFIG_HOME/zsh/zshenv.local"
