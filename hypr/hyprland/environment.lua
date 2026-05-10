@@ -25,6 +25,3 @@ hl.env("QT_SCALE_FACTOR", "1.2")
 
 -- steam
 hl.env("STEAM_FORCE_DESKTOPUI_SCALING", "1.2")
-
--- hyprshot
-hl.env("HYPRSHOT_DIR", os.getenv("HOME") .. "/Pictures/Screenshots")
