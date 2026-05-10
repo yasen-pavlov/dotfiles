@@ -1,0 +1,30 @@
+#!/bin/sh
+# Regenerate Hyprland Lua API stubs for lua-language-server.
+# Pins to the commit of the running Hyprland binary so stubs match installed API.
+#
+# Output: ~/.local/share/hl-stubs/hl.meta.lua
+# Override clone location: HL_STUBS_REPO=/path
+
+set -eu
+
+REPO_DIR="${HL_STUBS_REPO:-$HOME/.cache/hyprland-stubs-src}"
+OUT_DIR="$HOME/.local/share/hl-stubs"
+OUT_FILE="$OUT_DIR/hl.meta.lua"
+
+COMMIT=$(hyprctl version | grep -oP 'commit \K[a-f0-9]+' || true)
+if [ -z "$COMMIT" ]; then
+    echo "could not detect hyprland commit; falling back to main" >&2
+    COMMIT=main
+fi
+
+if [ ! -d "$REPO_DIR/.git" ]; then
+    git clone https://github.com/hyprwm/Hyprland "$REPO_DIR"
+fi
+
+git -C "$REPO_DIR" fetch --tags origin
+git -C "$REPO_DIR" checkout --quiet "$COMMIT"
+
+mkdir -p "$OUT_DIR"
+python3 "$REPO_DIR/meta/generateLuaStubs.py" --root "$REPO_DIR" --output "$OUT_FILE"
+
+echo "stubs updated for hyprland @ ${COMMIT}"
