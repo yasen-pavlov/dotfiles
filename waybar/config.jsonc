@@ -85,17 +85,17 @@
   "cpu": {
     "format": "{usage}%  ",
     "tooltip": false,
-    "on-click": "hyprctl dispatch 'exec [float; size 1400 1000] foot -e sh -c \"btop\"'"
+    "on-click": "hyprctl dispatch 'hl.dsp.exec_cmd([[ [float; size 1400 1000] foot -e sh -c \"btop\" ]])'"
   },
   "memory": {
     "format": "{}%  ",
-    "on-click": "hyprctl dispatch 'exec [float; size 1400 1000] foot -e sh -c \"btop\"'"
+    "on-click": "hyprctl dispatch 'hl.dsp.exec_cmd([[ [float; size 1400 1000] foot -e sh -c \"btop\" ]])'"
   },
   "temperature": {
     "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
     "critical-threshold": 80,
     "format": "{temperatureC}°C {icon}",
-    "on-click": "hyprctl dispatch 'exec [float; size 1400 1000] foot -e sh -c \"btop\"'",
+    "on-click": "hyprctl dispatch 'hl.dsp.exec_cmd([[ [float; size 1400 1000] foot -e sh -c \"btop\" ]])'",
     "format-icons": [
       " ",
       " ",
@@ -125,6 +125,7 @@
   "hyprland/workspaces": {
     "format": "{icon}  {windows}",
     "format-window-separator": "  ",
+    "enable-bar-scroll": true,
     "window-rewrite-default": "",
     "window-rewrite": {
       "title<.*youtube.*>": "",
