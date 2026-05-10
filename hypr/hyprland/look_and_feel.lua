@@ -1,4 +1,7 @@
+-- See https://wiki.hypr.land/Configuring/Basics/Variables/
+
 hl.config({
+  -- https://wiki.hypr.land/Configuring/Basics/Variables/#general
   general = {
     gaps_in     = 5,
     gaps_out    = 10,
@@ -10,10 +13,12 @@ hl.config({
     },
 
     resize_on_border = false,
+    -- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Tearing/ before turning this on
     allow_tearing    = true,
     layout           = "dwindle",
   },
 
+  -- https://wiki.hypr.land/Configuring/Basics/Variables/#decoration
   decoration = {
     rounding         = 10,
     active_opacity   = 1.0,
@@ -26,6 +31,7 @@ hl.config({
       color        = "rgba(1a1a1aee)",
     },
 
+      -- https://wiki.hypr.land/Configuring/Basics/Variables/#blur
     blur = {
       enabled  = true,
       size     = 3,
@@ -47,17 +53,20 @@ hl.config({
     },
   },
 
+  -- https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/
   dwindle = {
     preserve_split = true,
   },
 
+  -- https://wiki.hypr.land/Configuring/Layouts/Master-Layout/
   master = {
     new_status = "master",
   },
 
+  -- https://wiki.hypr.land/Configuring/Basics/Variables/#misc
   misc = {
-    force_default_wallpaper = -1,
-    disable_hyprland_logo   = true,
+    force_default_wallpaper = -1,    -- 0 or 1 disables anime mascot wallpapers
+    disable_hyprland_logo   = true,  -- disables the random hyprland logo background
     focus_on_activate       = true,
   },
 
@@ -67,6 +76,7 @@ hl.config({
     no_break_fs_vrr     = true,
   },
 
+  -- unscale XWayland
   xwayland = {
     force_zero_scaling = true,
   },
@@ -85,6 +95,7 @@ hl.config({
   },
 })
 
+-- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
 hl.curve("easeOutQuint",   { type = "bezier", points = { { 0.23, 1 },    { 0.32, 1 } } })
 hl.curve("easeInOutCubic", { type = "bezier", points = { { 0.65, 0.05 }, { 0.36, 1 } } })
 hl.curve("linear",         { type = "bezier", points = { { 0, 0 },       { 1, 1 } } })
@@ -108,5 +119,6 @@ hl.animation({ leaf = "workspaces",    enabled = true, speed = 1.94, bezier = "a
 hl.animation({ leaf = "workspacesIn",  enabled = true, speed = 1.21, bezier = "almostLinear", style = "fade" })
 hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
 
+-- GTK theme
 hl.exec_cmd("gsettings set org.gnome.desktop.interface gtk-theme 'Materia-dark'")
 hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")

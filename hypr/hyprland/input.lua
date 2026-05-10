@@ -1,3 +1,5 @@
+-- See https://wiki.hypr.land/Configuring/Basics/Variables/#input
+
 hl.config({
   input = {
     kb_layout  = "eu,bg",

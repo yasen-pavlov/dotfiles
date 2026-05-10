@@ -1,3 +1,5 @@
+-- See https://wiki.hypr.land/Configuring/Basics/Binds/
+
 return function(p)
   local mod = "SUPER"
 
@@ -56,7 +58,7 @@ return function(p)
   -- notifications
   hl.bind(mod .. " + SHIFT + N", hl.dsp.exec_cmd("swaync-client -t -sw"))
 
-  -- monitor display-input switch
+  -- switch monitor display input to notebook (via DDC/CI VCP feature 60)
   hl.bind("CTRL + ALT + SHIFT + D", hl.dsp.exec_cmd("ddcutil setvcp 60 0x10"), { locked = true })
 
   -- screenshots

@@ -1,3 +1,5 @@
+-- See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
+
 -- 1password
 hl.window_rule({
   match        = { title = "Quick Access — 1Password" },
