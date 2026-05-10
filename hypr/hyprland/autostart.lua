@@ -1,4 +1,5 @@
 hl.on("hyprland.start", function()
+  hl.exec_cmd("hyprctl plugin load $HOME/.local/share/hyprland-plugins/hyprcapture/build-v055/libhyprcapture.so")
   hl.exec_cmd("nm-applet &")
   hl.exec_cmd("blueman-applet")
   hl.exec_cmd("waybar")
