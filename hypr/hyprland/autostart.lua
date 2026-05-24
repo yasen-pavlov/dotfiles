@@ -3,9 +3,10 @@ hl.on("hyprland.start", function()
   -- unloads any non-hyprpm plugins, so we manually reload HyprCapture after.
   hl.exec_cmd("hyprpm reload")
   hl.exec_cmd("hyprctl plugin load $HOME/.local/share/hyprland-plugins/hyprcapture/build-v055/libhyprcapture.so")
-  hl.exec_cmd("nm-applet &")
-  hl.exec_cmd("blueman-applet")
-  -- replaced by noctalia shell (bar + notifications + wallpaper + lock)
+  -- network + bluetooth applets replaced by noctalia bar widgets
+  -- hl.exec_cmd("nm-applet &")
+  -- hl.exec_cmd("blueman-applet")
+  -- bar / notifications / lock / wallpaper also handled by noctalia
   -- hl.exec_cmd("waybar")
   -- hl.exec_cmd("swaync")
   hl.exec_cmd("qs -c noctalia-shell")
