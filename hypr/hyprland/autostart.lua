@@ -1,4 +1,7 @@
 hl.on("hyprland.start", function()
+  -- Load hyprpm-managed plugins first (currently: hyprexpo). This also
+  -- unloads any non-hyprpm plugins, so we manually reload HyprCapture after.
+  hl.exec_cmd("hyprpm reload")
   hl.exec_cmd("hyprctl plugin load $HOME/.local/share/hyprland-plugins/hyprcapture/build-v055/libhyprcapture.so")
   hl.exec_cmd("nm-applet &")
   hl.exec_cmd("blueman-applet")

@@ -105,4 +105,36 @@ return function(p)
 	-- 15. Pdx-Unlimiter
 	hl.bind("CTRL + SHIFT + I", hl.dsp.pass({ window = "class:^(Pdx-Unlimiter)$" }), { description = "Forward Ctrl+Shift+I → Pdx-Unlimiter" })
 	hl.bind("CTRL + SHIFT + K", hl.dsp.pass({ window = "class:^(Pdx-Unlimiter)$" }), { description = "Forward Ctrl+Shift+K → Pdx-Unlimiter" })
+
+	-- 16. Overview (HyprExpo)
+	hl.bind(mod .. " + TAB", function()
+		hl.plugin.hyprexpo.expo("toggle")
+	end, { description = "Workspace overview (HyprExpo)" })
+
+	-- Active submap while the overview is open. Plugin auto-enters this map
+	-- on open because keynav_enable = 1 (see plugins.lua).
+	hl.define_submap("hyprexpo", function()
+		-- vim + arrow focus
+		hl.bind("h",     function() hl.plugin.hyprexpo.kb_focus("left") end,  { description = "Overview: focus left" })
+		hl.bind("j",     function() hl.plugin.hyprexpo.kb_focus("down") end,  { description = "Overview: focus down" })
+		hl.bind("k",     function() hl.plugin.hyprexpo.kb_focus("up") end,    { description = "Overview: focus up" })
+		hl.bind("l",     function() hl.plugin.hyprexpo.kb_focus("right") end, { description = "Overview: focus right" })
+		hl.bind("left",  function() hl.plugin.hyprexpo.kb_focus("left") end,  { description = "Overview: focus left" })
+		hl.bind("down",  function() hl.plugin.hyprexpo.kb_focus("down") end,  { description = "Overview: focus down" })
+		hl.bind("up",    function() hl.plugin.hyprexpo.kb_focus("up") end,    { description = "Overview: focus up" })
+		hl.bind("right", function() hl.plugin.hyprexpo.kb_focus("right") end, { description = "Overview: focus right" })
+
+		-- direct selection by workspace ID (1-9, 0 maps to 10).
+		-- `kb_selectn` uses workspace IDs (handles sparse layouts); `kb_selecti`
+		-- would use visible-tile position instead, which misroutes when not all
+		-- workspaces 1-N exist.
+		for i = 1, 10 do
+			local key = tostring(i % 10)
+			hl.bind(key, function() hl.plugin.hyprexpo.kb_selectn(i) end, { description = "Overview: go to workspace " .. i })
+		end
+
+		-- confirm / cancel
+		hl.bind("return", function() hl.plugin.hyprexpo.kb_confirm() end, { description = "Overview: select focused tile" })
+		hl.bind("escape", function() hl.plugin.hyprexpo.expo("off") end,  { description = "Overview: close" })
+	end)
 end
