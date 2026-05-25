@@ -107,9 +107,11 @@ return function(p)
 	hl.bind("CTRL + SHIFT + K", hl.dsp.pass({ window = "class:^(Pdx-Unlimiter)$" }), { description = "Forward Ctrl+Shift+K → Pdx-Unlimiter" })
 
 	-- 16. Overview (HyprExpo)
+	-- dont_inhibit bypasses zwp_keyboard_shortcuts_inhibit so the overview opens
+	-- even from inside fullscreen games / VMs that grab keyboard shortcuts.
 	hl.bind(mod .. " + TAB", function()
 		hl.plugin.hyprexpo.expo("toggle")
-	end, { description = "Workspace overview (HyprExpo)" })
+	end, { dont_inhibit = true, description = "Workspace overview (HyprExpo)" })
 
 	-- Active submap while the overview is open. Plugin auto-enters this map
 	-- on open because keynav_enable = 1 (see plugins.lua).
