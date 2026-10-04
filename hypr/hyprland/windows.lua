@@ -44,6 +44,48 @@ hl.window_rule({
 	immediate = true,
 })
 
+-- Steam client → always workspace 3 (main window only; title match keeps
+-- the empty-title popups/menus off this rule). Add " silent" to the value
+-- to assign without pulling focus to ws3 on launch.
+hl.window_rule({
+	match = { class = "^steam$", title = "^Steam$" },
+	workspace = "3",
+})
+
+-- UT99 / OldUnreal: float at exactly the output size. The engine's exclusive
+-- fullscreen hard-crashes on Wayland's async fullscreen ("Inconsistent SDL
+-- window flags"; no SDL/engine-side fix exists — SDL_VIDEO_SYNC_WINDOW_OPERATIONS
+-- tested, doesn't cover it). Floating the borderless window at 3840x2160@0,0
+-- gives pixel-perfect gapless "fullscreen" with no SDL fullscreen involved.
+-- Do NOT use the in-game fullscreen toggle (re-arms StartupFullscreen=True in
+-- ~/.utpg/System/UnrealTournament.ini → next launch crashes; flip it back if so).
+hl.window_rule({
+	match = { class = "^(ut-bin-amd64)$" },
+	float = true,
+})
+hl.window_rule({
+	match = { class = "^(ut-bin-amd64)$" },
+	size = "3840 2160",
+})
+hl.window_rule({
+	match = { class = "^(ut-bin-amd64)$" },
+	move = "0 0",
+})
+-- ...and 1s after the window opens, promote it to real compositor fullscreen
+-- (engages vrr=2). A map-time `fullscreen` RULE crashes the engine
+-- (ResizeViewport(0,0) — retested 2026-07-19); fullscreening the ESTABLISHED
+-- window (same as a manual Mod+F) is safe. Guards: only if UT still holds
+-- focus and isn't already fullscreen (the dispatcher is a toggle).
+hl.on("window.open", function(w)
+	if not w or w.class ~= "ut-bin-amd64" then return end
+	hl.timer(function()
+		local active = hl.get_active_window()
+		if active and active.class == "ut-bin-amd64" and active.fullscreen == 0 then
+			hl.dispatch(hl.dsp.window.fullscreen())
+		end
+	end, { timeout = 1000, type = "oneshot" })
+end)
+
 -- telegram
 hl.window_rule({
 	match = { class = "org.telegram.desktop" },
@@ -90,4 +132,21 @@ hl.window_rule({
 hl.window_rule({
 	match = { class = "discord" },
 	suppress_event = "activate activatefocus",
+})
+
+-- noctalia (v5): Settings is a regular xdg-toplevel, not a layer surface -> float + center it
+hl.window_rule({
+	match = { class = "dev.noctalia.Noctalia" },
+	float = true,
+	size = "1080 920",
+	center = true,
+})
+
+-- noctalia (v5) bar: the shell asks Hyprland for a blur region over the whole bar body
+-- (ext-background-effect), which the compositor honours even with background_opacity = 0
+-- and which no layer rule can veto (CLayerSurface::shouldBlur). ignore_alpha keeps the
+-- transparent bar body unblurred so only the 0.5-opacity capsules pick up blur, as in v4.
+hl.layer_rule({
+	match = { namespace = "^noctalia-bar-.*$" },
+	ignore_alpha = 0.3,
 })

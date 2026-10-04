@@ -54,6 +54,16 @@ export PATH="$PATH:$CUDA_BIN"
 # SonarQube CLI
 export PATH="$HOME/.local/share/sonarqube-cli/bin:$PATH"
 
+# pnpm
+export PNPM_HOME="$XDG_DATA_HOME/pnpm"
+export PATH="$PNPM_HOME/bin:$PATH"
+
+# bun
+export PATH="$HOME/.cache/.bun/bin:$PATH"
+
+# sonar
+export PATH="$HOME/.local/share/sonarqube-cli/bin:$PATH"
+
 ###os specific
 
 # linux
@@ -61,7 +71,7 @@ if [[ $OSTYPE == 'linux-gnu' ]]; then
  
   # Preferred editor for local and remote sessions
   export EDITOR='nvim'
-  export VISUAL='neovide'
+  export VISUAL='nvim'
 
 # macos
 elif [[ $OSTYPE == 'darwin'* ]]; then
@@ -73,8 +83,8 @@ elif [[ $OSTYPE == 'darwin'* ]]; then
   export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
   # Preferred editor for local and remote sessions
-  export EDITOR='start_neovide'
-  export VISUAL='start_neovide'
+  export EDITOR='nvim'
+  export VISUAL='nvim'
  
   # JetBrains Toolbox App
   export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"

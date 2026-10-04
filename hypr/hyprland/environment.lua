@@ -8,6 +8,9 @@ hl.env("GDK_BACKEND", "wayland")
 hl.env("SDL_VIDEODRIVER", "wayland")
 hl.env("CLUTTER_BACKEND", "wayland")
 
+-- default apps (noctalia launcher wraps Terminal=true entries in $TERMINAL)
+hl.env("TERMINAL", "alacritty")
+
 -- XDG
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
 hl.env("XDG_SESSION_TYPE", "wayland")

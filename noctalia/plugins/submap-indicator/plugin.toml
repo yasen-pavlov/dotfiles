@@ -1,0 +1,51 @@
+# Submap Indicator - Luau (Noctalia v5) port of the v4 QML plugin of the same name.
+# Served by the "dotfiles" path source. Bar widget type: "muty/submap-indicator:submap".
+
+id = "muty/submap-indicator"
+name = "Submap Indicator"
+version = "1.0.0"
+plugin_api = 3
+author = "muty"
+license = "MIT"
+dependencies = ["hyprctl", "socat", "stdbuf"]
+tags = ["hyprland", "bar", "indicator"]
+icon = "layout-grid"
+description = "Shows a bar pill (e.g. GROUP MODE) only while a configured Hyprland submap is active. Hidden on the default map."
+
+# Bar widget. The plugin draws its own pill (primary with accent, surface_variant
+# without), so turn the bar capsule off for the instance or it is wrapped in a
+# second capsule:
+#   [widget.submap-indicator]
+#   type    = "muty/submap-indicator:submap"
+#   capsule = false
+[[widget]]
+id = "submap"
+entry = "submap.luau"
+
+  [[widget.setting]]
+  key = "matched_submap"
+  type = "string"
+  label_key = "settings.matched_submap.label"
+  description_key = "settings.matched_submap.description"
+  default = "grp"
+
+  [[widget.setting]]
+  key = "label"
+  type = "string"
+  label_key = "settings.label.label"
+  description_key = "settings.label.description"
+  default = "GROUP MODE"
+
+  [[widget.setting]]
+  key = "glyph"
+  type = "glyph"
+  label_key = "settings.glyph.label"
+  description_key = "settings.glyph.description"
+  default = "layout-grid"
+
+  [[widget.setting]]
+  key = "use_accent_color"
+  type = "bool"
+  label_key = "settings.use_accent_color.label"
+  description_key = "settings.use_accent_color.description"
+  default = true

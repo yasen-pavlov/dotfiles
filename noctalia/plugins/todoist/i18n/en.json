@@ -1,0 +1,64 @@
+{
+  "panel": {
+    "title": "Todoist",
+    "summary": "{overdue} overdue · {today} today · {upcoming} upcoming",
+    "summary-clear": "All clear",
+    "last-sync": "synced {time}",
+    "last-sync-never": "never synced",
+    "section-overdue": "Overdue",
+    "section-today": "Today",
+    "section-upcoming": "Upcoming",
+    "empty-overdue": "Nothing overdue.",
+    "empty-today": "Nothing due today.",
+    "empty-upcoming": "Nothing on the horizon.",
+    "no-due": "No due tasks.",
+    "loading": "Loading…",
+    "error-prefix": "Error: ",
+    "row-complete": "Mark complete",
+    "row-push-tomorrow": "Push to tomorrow",
+    "row-open": "Open in Todoist",
+    "footer-open": "Open Todoist",
+    "footer-refresh": "Refresh"
+  },
+  "tooltip": {
+    "header": "Todoist",
+    "line-overdue": "{n} overdue",
+    "line-today": "{n} today",
+    "line-upcoming": "{n} upcoming",
+    "clear": "Inbox zero",
+    "error": "Last sync failed"
+  },
+  "toast": {
+    "completed-title": "Task completed",
+    "rescheduled-title": "Pushed to tomorrow",
+    "error-title": "Todoist error"
+  },
+  "settings": {
+    "poll-seconds": {
+      "label": "Refresh interval (seconds)",
+      "desc": "How often to fetch tasks. Lower = fresher, higher = lighter on the API."
+    },
+    "filter": {
+      "label": "Todoist filter",
+      "desc": "Optional filter expression (e.g. `today | overdue`, `@work`). Empty = all active tasks."
+    },
+    "max-per-section": {
+      "label": "Max items per section"
+    },
+    "show-overdue": { "label": "Show overdue section" },
+    "show-today": { "label": "Show today section" },
+    "show-upcoming": { "label": "Show upcoming section" },
+    "pill-show-icon": { "label": "Show icon in bar pill" },
+    "pill-show-dots": {
+      "label": "Show count dots in bar pill",
+      "desc": "Colored counts next to the icon — only buckets with > 0 are shown"
+    },
+    "color-overdue": { "label": "Overdue color" },
+    "color-today": { "label": "Today color" },
+    "color-upcoming": { "label": "Upcoming color" },
+    "open-url": {
+      "label": "Open URL",
+      "desc": "Where the bar pill's right-click and the footer button open in the browser"
+    }
+  }
+}

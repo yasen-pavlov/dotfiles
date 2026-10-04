@@ -1,0 +1,20 @@
+{
+  "settings": {
+    "matched_submap": {
+      "label": "Submap to match",
+      "description": "Hyprland submap name (define_submap / submap = NAME) that shows the pill. Exact match; every other submap stays hidden."
+    },
+    "label": {
+      "label": "Pill label",
+      "description": "Text shown next to the glyph while the submap is active. Leave empty for a glyph-only pill."
+    },
+    "glyph": {
+      "label": "Glyph",
+      "description": "Tabler icon shown in the pill. Leave empty for a text-only pill."
+    },
+    "use_accent_color": {
+      "label": "Use accent color",
+      "description": "Fill the pill with the primary colour and draw the glyph and text in on-primary. Off uses the widget's default colours."
+    }
+  }
+}

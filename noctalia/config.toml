@@ -1,0 +1,498 @@
+# Noctalia 5.1.0 configuration — ported from the v4 (Quickshell) settings.json, settingsVersion 59.
+#
+# Curated, not a full dump: only values that differ from v5 defaults, values that v4 relied on,
+# and keys that must be pinned because the v5 default differs from v4 behaviour.
+# Every table carries a "# v4:" comment with its origin.
+#
+# Installed as ~/.config/noctalia/config.toml (symlink -> dotfiles/noctalia/config.toml).
+# ~/.local/state/noctalia/settings.toml (GUI/state layer) loads LAST and wins over anything here.
+# Validate with:  noctalia config validate ~/.config/noctalia/config.toml
+#   (catches unknown keys/tables and out-of-range numbers only — it does NOT reject bad enum/string
+#    values such as weather.unit or a shortcut type; check `noctalia config export full` after a restart)
+
+# ── Shell / accessibility ─────────────────────────────────────────────────────
+
+[accessibility]
+# v4 was rendered at QT_SCALE_FACTOR=1.2 (session env), which v5 ignores → scale panels
+# and all non-bar UI here; the bar has its own [bar.main].scale below.
+ui_scale = 1.2
+
+[shell]
+# v4: ui.fontDefault="SF Pro Display", general.avatarImage, general.telemetryEnabled=false
+font_family          = "SF Pro Display"
+avatar_path          = "~/Pictures/Avatars/Bender1.jpg"
+setup_wizard_enabled = false        # wizard already completed; never auto-open it again
+polkit_agent         = false        # hyprpolkitagent.service already owns polkit prompts
+telemetry_enabled    = false
+# v4: appLauncher.screenshotAnnotationTool="gradia" → image clipboard entries get a "gradia" action
+# (no {path} → PNG is piped on stdin, same as v4). cliphist/wl-paste watchers are gone:
+# v5 keeps its own encrypted clipboard history via Secret Service (gnome-keyring).
+clipboard_image_action_command = "gradia"
+# v4: ui.fontFixed="monospace" has no global key in v5 — set per widget (see sysmon widgets).
+
+[shell.shadow]
+# v4: general.enableShadows=true, shadowDirection="bottom_right" (offsets 2/3 have no v5 key)
+direction = "down_right"
+
+[shell.panel]
+# v4: ui.panelsAttachedToBar=false, controlCenter.position="close_to_bar_button",
+#     bar.rightClickFollowMouse=true → floating panels that open next to the click
+control_center_placement       = "floating"
+wallpaper_placement            = "floating"
+session_placement              = "floating"
+open_near_click_control_center = true
+open_near_click_wallpaper      = true
+open_near_click_session        = true
+# Launcher/clipboard: v4 position="center" == v5 default (floating, center).
+# v4 ui.panelBackgroundOpacity=0.93 has no numeric key in v5 (only transparency_mode = solid|soft|glass,
+#   default solid). v4 general.dimmerOpacity=0 / enableBlurBehind=false: v5 has no panel dimmer, and blur
+#   is an opt-in Hyprland layer rule (none added).
+# v4 ui.settingsPanelMode="centered": v5 Settings is a separate xdg window (`noctalia msg settings-toggle`,
+#   app_id dev.noctalia.Noctalia) — float/center it with a Hyprland window rule, not here.
+
+# [shell.launcher]: v4 sortByMostUsed=true, showCategories=true, viewMode="list" equal the v5 defaults
+# (sort_by_usage / categories / app_grid=false). v4 enableSettingsSearch has no v5 provider.
+# v4 appLauncher.terminalCommand="foot" → v5 reads $TERMINAL from the session env (set in Hyprland env, not here).
+
+[shell.launcher.providers.session]
+# v4: appLauncher.enableSessionSearch=true — session actions matched plain queries; v5 default is /session prefix only
+global = true
+
+[shell.launcher.providers.windows]
+# v4: appLauncher.enableWindowsSearch=true — open windows matched plain queries; v5 default is /win prefix only
+global = true
+
+[shell.session]
+# v4: sessionMenu.largeButtonsLayout="single-row", showKeybinds=true, countdown 10 s on every action.
+# Order, shortcuts 1–7 and countdowns reproduce v4 powerOptions.
+grid           = false
+show_shortcuts = true
+
+[[shell.session.actions]]
+action            = "lock"
+shortcut          = "1"
+countdown_seconds = 10
+
+[[shell.session.actions]]
+# v4 "suspend" + general.lockOnSuspend=true → lock_and_suspend. A plain "suspend" from the session panel is
+# Noctalia-initiated and deliberately SKIPS lock-before-sleep (session_action_runner onBeforePlainSuspend →
+# m_skipLockOnNextSleep); [lockscreen].lock_before_suspend only covers external suspends (lid / systemctl suspend).
+action            = "lock_and_suspend"
+shortcut          = "2"
+countdown_seconds = 10
+
+[[shell.session.actions]]
+# v4 "hibernate": no native v5 action → command. DISABLED: this machine has only a zram swap
+# (swapon: /dev/zram0) and no resume= on the kernel cmdline, so `systemctl hibernate` fails
+# ("Not enough swap space for hibernation"). Flip enabled=true once a resume swap exists.
+action            = "command"
+label             = "Hibernate"
+glyph             = "zzz"
+command           = "systemctl hibernate"
+shortcut          = "3"
+countdown_seconds = 10
+enabled           = false
+
+[[shell.session.actions]]
+action            = "reboot"
+shortcut          = "4"
+countdown_seconds = 10
+
+[[shell.session.actions]]
+# v4 "logout" → the Hyprland logout bind uses uwsm, so the session must end the same way.
+action            = "logout"
+command           = "uwsm stop"
+shortcut          = "5"
+countdown_seconds = 10
+
+[[shell.session.actions]]
+action            = "shutdown"
+shortcut          = "6"
+countdown_seconds = 10
+variant           = "destructive"
+
+[[shell.session.actions]]
+# v4 "rebootToUefi": no native v5 action → command.
+action            = "command"
+label             = "UEFI Setup"
+glyph             = "cpu"
+command           = "systemctl reboot --firmware-setup"
+shortcut          = "7"
+countdown_seconds = 10
+
+# ── Theme ─────────────────────────────────────────────────────────────────────
+
+[theme]
+# v4: colorSchemes.predefinedScheme="Material-Dark" (user-authored), darkMode=true,
+#     useWallpaperColors=false, schedulingMode="off". Palette file (v5 shape, loads verbatim):
+#     ~/.config/noctalia/palettes/Material-Dark.json
+mode           = "dark"
+source         = "custom"
+custom_palette = "Material-Dark"
+# v4 templates.activeTemplates=[] → [theme.templates] builtin_ids/community_ids stay empty (default).
+
+# ── Bar ───────────────────────────────────────────────────────────────────────
+
+[bar.main]
+# v4: bar.barType="simple", position="top", marginHorizontal=4, marginVertical=4 (floating 4 px inset),
+#     outerCorners=false, backgroundOpacity=0 + useSeparateOpacity=true, showCapsule=true,
+#     capsuleOpacity=0.5, frameRadius=12, widgetSpacing=6, showOutline=false, density="default".
+position             = "top"
+thickness            = 37           # v4 default density = 31 px, × 1.2 env scale ≈ 37 (thickness is NOT scaled by `scale`)
+scale                = 1.2          # bar content (icons/text/spacing) at the old QT_SCALE_FACTOR
+background_opacity   = 0.0
+margin_edge          = 4            # v5 default is 0 (bar docs + `config export full`; example.toml's 10 is stale)
+margin_ends          = 4            # v5 default is 100 (bar docs + `config export full`; example.toml's 180 is stale)
+concave_edge_corners = false        # v4 outerCorners=false (also required: a floating bar cannot carve corners)
+radius               = 12
+widget_spacing       = 6
+capsule              = true
+capsule_opacity      = 0.5
+
+# Widget order reproduces v4 bar.widgets.{left,center,right}.
+# v4 plugin widgets are NOT available yet — commented placeholders keep their slots:
+#   plugin:submap-indicator, plugin:todoist, plugin:keybind-cheatsheet (Luau ports pending),
+start  = ["launcher", "clock", "group:sysmon", "active_window", "media"]
+center = ["taskbar"]                 # v4 Workspace with showApplications=true → grouped taskbar (see [widget.taskbar])
+end    = [
+  "submap-indicator",                    # v4 plugin:submap-indicator → Luau port (see [widget.submap-indicator])
+  "muty/todoist:bar",                    # v4 plugin:todoist → Luau port (service muty/todoist:sync, panel muty/todoist:tasks)
+  "tray",
+  "notifications",
+  "keyboard_layout",
+  "kenn/keybind-cheatsheet:keybinds",    # v4 plugin:keybind-cheatsheet → community plugin (Hyprland lua parser)
+  "volume",
+  "brightness",
+  "muty/keep-awake:bar",                 # v4 plugin:keep-awake-plus → Luau port (timed, partial/full scope)
+  "control-center",
+]
+
+[[bar.main.capsule_group]]
+# v4 SystemMonitor was ONE widget (cpu usage + cpu temp + memory) in one capsule; v5 sysmon shows
+# one stat per widget, so the three share a capsule group to keep the v4 look.
+id      = "sysmon"
+members = ["cpu", "temp", "ram"]
+opacity = 0.5
+
+# ── Bar widgets ───────────────────────────────────────────────────────────────
+
+[widget.launcher]
+# v4: Launcher icon="rocket", useDistroLogo=false
+glyph = "rocket"
+
+[widget.clock]
+# v4: Clock formatHorizontal="HH:mm ddd, MMM dd" (Qt tokens) → strftime. v4's tooltip repeated the
+# same string; v5 gets the full date instead. Left-click opens the calendar tab (v5 default).
+format         = "{:%H:%M %a, %b %d}"
+tooltip_format = "{:%A, %B %d, %Y}"
+
+[widget.cpu]
+# v4: SystemMonitor compactMode=true (glyph + value, no gauge), useMonospaceFont=true
+type          = "sysmon"
+stat          = "cpu_usage"
+visualization = "none"
+font_family   = "monospace"
+
+[widget.temp]
+type          = "sysmon"
+stat          = "cpu_temp"
+visualization = "none"
+font_family   = "monospace"
+
+[widget.ram]
+type          = "sysmon"
+stat          = "ram_used"
+visualization = "none"
+font_family   = "monospace"
+
+[widget.active_window]
+# v4: ActiveWindow maxWidth=145, scrollingMode="hover", showIcon+showText, hideMode="hidden"
+max_length       = 145
+title_scroll     = "on_hover"
+display          = "icon_and_text"
+show_empty_label = false
+
+[widget.media]
+# v4: MediaMini showArtistFirst=true, showProgressRing=true, maxWidth=145, scrollingMode="hover", hideMode="hidden"
+artist_first       = true
+max_length         = 145
+title_scroll       = "on_hover"
+show_progress      = true           # progress is a fill, not a ring, in v5
+hide_when_no_media = true
+
+[widget.taskbar]
+# v4: Workspace labelMode="index", showApplications=true (app icons drawn on every occupied
+# workspace), hideUnoccupied=false, showLabelsOnlyWhenOccupied=false, focused=primary,
+# occupied=secondary, empty=secondary. The v5 workspaces widget never draws per-workspace app
+# icons (only focus_hint draws the focused one), so the grouped taskbar is the real equivalent.
+# KNOWN LIMITATION on lua-config Hyprland (this machine): clicking a tile focuses the window via
+# hl.dsp.focus(), but the follow-up legacy `dispatch alterzorder top,<addr>` errors — focus works,
+# raising a floating window above others does not (src/compositors/hyprland/hyprland_workspace_backend.cpp).
+group_by_workspace    = true
+show_workspace_label  = true
+hide_empty_workspaces = false
+icon_scale            = 0.8         # v4 Workspace iconScale=0.8 (app icons inside the workspace pills); tune by eye — v5 sizes against bar thickness
+focused_color         = "primary"
+occupied_color        = "secondary"
+empty_color           = "secondary"
+
+[widget.taskbar.actions]
+# v4 Workspace enableScrollWheel=true switched workspaces; the taskbar's own default cycles tasks.
+scroll_up   = "workspace-switch prev"
+scroll_down = "workspace-switch next"
+
+[widget.submap-indicator]
+# Luau port of the v4 plugin: pill "GROUP MODE" only while the Hyprland "grp" submap is active.
+# The plugin draws its own filled pill, so the bar capsule is off for this instance.
+# (`config validate` warns "capsule: unknown setting" for plugin widgets — false positive: the bar reads the
+#  per-widget capsule key generically, src/config/config_types.cpp buildCapsuleSpec.)
+type    = "muty/submap-indicator:submap"
+capsule = false
+
+[widget.tray]
+# v4: Tray drawerEnabled=false, hidePassive=false (v5 default hide_passive=true — must pin)
+hide_passive = false
+drawer       = false
+
+[widget.notifications]
+# v4: NotificationHistory showUnreadBadge=true, hideWhenZero=false. Right-click = DND toggle.
+hide_when_no_unread = false
+
+[widget.keyboard_layout]
+# v4: KeyboardLayout displayMode="forceOpen" (label always visible), showIcon=true
+show_glyph = true
+show_label = true
+display    = "short"
+
+[widget.volume]
+# v4: Volume displayMode="alwaysShow", middleClickCommand="pwvucontrol || pavucontrol"
+show_label = true
+
+[widget.volume.actions]
+# v5 default middle-click opens the widget settings → rebind to the mixer (exec runs via /bin/sh -lc).
+middle = "exec pwvucontrol || pavucontrol"
+
+[widget.brightness]
+# v4: Brightness displayMode="alwaysShow"; needs [brightness].enable_ddcutil=true or the widget hides itself
+show_label = true
+
+[widget.control-center]
+# v4: ControlCenter useDistroLogo=true, colorizeDistroLogo=false → CachyOS logo, original colours
+custom_image          = "/usr/share/icons/cachyos.svg"
+custom_image_colorize = false
+
+# ── Control Center ────────────────────────────────────────────────────────────
+
+[control_center]
+# v4 cards: profile, shortcuts, audio, weather, media-sysmon enabled; brightness-card DISABLED.
+# The "monitor" tab is deliberately NOT hidden: the bar brightness widget opens it on click
+# (DDC brightness is in use). Uncomment to mirror the disabled v4 card:
+# hidden_tabs = ["monitor"]
+
+# v4 shortcuts (8): Network, Bluetooth, WallpaperSelector, NoctaliaPerformance | Notifications,
+# PowerProfile, keep-awake-plus, NightLight. v5 shows at most 6:
+#   dropped Network/wifi      — this machine has no wireless NIC (nmcli lists no wifi device)
+#   dropped NoctaliaPerformance — shell performance mode does not exist in v5
+#   keep-awake-plus → caffeine
+# v4 network.bluetoothHideUnnamedDevices=true has no v5 equivalent (unnamed devices are listed).
+[[control_center.shortcuts]]
+type = "bluetooth"
+[[control_center.shortcuts]]
+type = "wallpaper"
+[[control_center.shortcuts]]
+type = "notification"
+[[control_center.shortcuts]]
+type = "power_profile"
+[[control_center.shortcuts]]
+type = "muty/keep-awake:tile"       # v4 keep-awake-plus shortcut (was the interim built-in caffeine)
+[[control_center.shortcuts]]
+type = "nightlight"
+
+# ── Notifications / OSD ───────────────────────────────────────────────────────
+
+[notification]
+# v4: notifications.location="top_right", overlayLayer=true, clearDismissed=true
+#     (v5 default keep_dismissed_in_history=true is the inverse — must pin).
+# v4 per-urgency durations (3/8/15 s) have no v5 equivalent (single default timeout).
+# v4 respectExpireTimeout=false has no v5 key: v5 honours sender timeouts unless a
+# [notification.filter.<sender>] override_duration is set.
+position                  = "top_right"
+layer                     = "overlay"
+keep_dismissed_in_history = false
+
+[osd]
+# v4: osd.location="top_right" (v5 default is top_center per shell docs + `config export full`; example.toml is stale)
+# v4 osd.autoHideMs=2000 has no v5 key.
+position = "top_right"
+
+[osd.kinds]
+# v4: notifications.enableMediaToast=false; enableKeyboardLayoutToast=true (v5 default)
+# v4: osd.enabledTypes=[0,1,2] = Volume/InputVolume/Brightness only — LockKey (3) was off, so no
+#     Caps/Num/Scroll Lock popups (v5 default lock_keys=true; false also stops the lock-key poller
+#     since no lock_keys bar widget is configured).
+media     = false
+lock_keys = false
+
+# ── Idle / lock ───────────────────────────────────────────────────────────────
+
+[idle]
+# v4: idle.enabled=true, fadeDuration=5, customCommands "Dim screen" @150 s, screenOff 600, lock 660, suspend 1800.
+# Note: in v5 the pre-action fade precedes EVERY behaviour, including the dim command.
+behavior_order          = ["dim", "screen-off", "lock", "suspend"]
+pre_action_fade_seconds = 5
+
+[idle.behavior.dim]
+# v4 customCommands[0] verbatim: dim via DDC only when the monitor is on the DP input (VCP 60 == 0x0f).
+timeout        = 150
+action         = "command"
+command        = "ddcutil getvcp 60 | grep -q '0x0f' && ddcutil setvcp 10 0"
+resume_command = "ddcutil setvcp 10 70"
+
+[idle.behavior.screen-off]
+timeout = 600
+action  = "screen_off"
+enabled = true
+
+[idle.behavior.lock]
+timeout = 660
+action  = "lock"
+enabled = true
+
+[idle.behavior.suspend]
+timeout = 1800
+action  = "lock_and_suspend"
+enabled = true
+
+[lockscreen]
+# v4: general.lockOnSuspend=true, lockScreenBlur=0, lockScreenTint=0 (v5 defaults 0.5 / 0.3)
+# v4: allowPasswordWithFprintd=false / autoStartAuth=false = password only; no fprintd on this machine,
+#     so fingerprint=false also skips the fprintd D-Bus probe on every lock (v5 default true).
+lock_before_suspend = true
+blur_intensity      = 0.0
+tint_intensity      = 0.0
+fingerprint         = false
+# lockscreen_widgets are state-managed by the wizard (~/.local/state/noctalia/settings.toml) — never here.
+# v4 general.clockStyle=custom / clockFormat="hh\nmm" would be a lockscreen_widgets clock entry — same rule.
+
+# ── Wallpaper ─────────────────────────────────────────────────────────────────
+
+[wallpaper]
+# v4: wallpaper.directory (v5 default "" = ~/Pictures, NOT the Wallpapers subfolder), fillMode="crop",
+#     transitionType=[fade,disc,stripes,wipe,pixelate,honeycomb] ("pixelate" does not exist in v5),
+#     transitionDuration=1500, transitionEdgeSmoothness=0.05, skipStartupTransition=false.
+directory             = "~/Pictures/Wallpapers"
+fill_mode             = "crop"
+transition            = ["fade", "disc", "stripes", "wipe", "honeycomb"]
+transition_duration   = 1500
+edge_smoothness       = 0.05
+transition_on_startup = true
+
+[wallpaper.automation]
+# v4: automationEnabled=true, wallpaperChangeMode="random", randomIntervalSec=300
+enabled          = true
+interval_seconds = 300
+order            = "random"
+
+# v4 dock.enabled=false and desktopWidgets.enabled=false — pinned so a default change cannot resurrect them.
+[dock]
+enabled = false
+
+[desktop_widgets]
+enabled = false
+
+# ── System monitor / brightness / location / weather / calendar ───────────────
+
+[system.monitor]
+# v4: systemMonitor warning 80 / critical 90 for cpu, mem, temp, gpu, swap, disk; enableDgpuMonitoring=true
+cpu_usage_activity_threshold     = 80
+cpu_usage_critical_threshold     = 90
+cpu_temp_activity_threshold      = 80
+cpu_temp_critical_threshold      = 90
+ram_pct_activity_threshold       = 80
+ram_pct_critical_threshold       = 90
+gpu_temp_activity_threshold      = 80
+gpu_temp_critical_threshold      = 90
+gpu_usage_activity_threshold     = 80
+gpu_usage_critical_threshold     = 90
+gpu_vram_activity_threshold      = 80
+gpu_vram_critical_threshold      = 90
+swap_pct_activity_threshold      = 80
+swap_pct_critical_threshold      = 90
+disk_used_pct_activity_threshold = 80
+disk_used_pct_critical_threshold = 90
+
+[brightness]
+# v4: brightness.enableDdcSupport=true, enforceMinimum=true (v4 clamped DDC brightness to 1 %)
+enable_ddcutil     = true
+minimum_brightness = 0.01
+
+[brightness.monitor.DP-1]
+backend = "ddcutil"
+
+[location]
+# v4: location.name="Dusseldorf", autoLocate=false. The address is geocoded ONCE via api.noctalia.dev/geocode
+# and cached on disk; kept (not pinned lat/lon) because manual coordinates would replace the "Düsseldorf"
+# label in the weather UI with raw "51.2277, 6.7735" (location_service.cpp name = formatted coords).
+auto_locate = false
+address     = "Dusseldorf"
+# latitude  = 51.2277               # alternative: no api.noctalia.dev call at all, at the cost of the city label
+# longitude = 6.7735
+
+[weather]
+# v4: location.weatherEnabled=true, useFahrenheit=false, weatherShowEffects=true
+# (kept explicit; compiled defaults are enabled=true / unit="metric" — example.toml's enabled=false and
+# "celsius" are both stale; only "imperial" is special-cased in src, anything else silently means metric)
+enabled = true
+unit    = "metric"                  # metric|imperial — NOT enum-validated by `config validate`
+effects = true
+
+[calendar]
+# v4: location.showCalendarEvents=true. iCloud is synced locally by vdirsyncer (+khal) into a vdir
+# tree; v5 watches it with inotify (read-only, no credentials involved).
+# v4 location.showCalendarWeather=true: v5's calendar tab has no weather card (weather lives in its own tab).
+enabled = true
+
+[calendar.account.icloud]
+type      = "vdir"
+name      = "iCloud"
+path      = "~/.local/share/vdirsyncer/calendars"
+# ids = collection directory names (vdir_reader.cpp col.id). Mirrors khal's four calendars;
+# d93d6fc7-… is iCloud's Reminders-migration placeholder list (2 stub items) and is left out on purpose.
+# Labels/colours come from vdirsyncer `displayname`/`color` files, which do not exist yet → run
+# `vdirsyncer metasync` once (config already has metadata = ["color", "displayname"]); until then
+# v5 shows the raw directory ids (the .ics files carry no X-WR-CALNAME either).
+calendars = [
+  "home",                                                               # khal: Private
+  "398C3B2B-F1F1-48AA-9CE8-FE7CAAE020F5",                               # khal: Family
+  "7dcbb9d13cafb8d2861717e410f25e0eb3118fce1171f4578431bbba93cdf87e",   # khal: Personal-Mimi
+  "463cb21ed5e4c22321f524e04db63b905729cd62351e4ebf6e2cc6b3b174a742",   # khal: Work-Mimi
+]
+
+# ── Plugins ───────────────────────────────────────────────────────────────────
+
+[plugins]
+# v4: plugins.autoUpdate=false (v5 default "all" = background git pulls at startup and every 6 h).
+auto_update = "none"
+enabled     = ["kenn/keybind-cheatsheet", "muty/submap-indicator", "muty/todoist", "muty/keep-awake"]   # community + dotfiles (path source below)
+
+# Declaring ANY [[plugins.source]] suppresses the built-in defaults, so official + community are
+# restated here (same name + location as the defaults, so Noctalia still treats them as built-in).
+[[plugins.source]]
+name     = "official"
+kind     = "git"
+location = "https://github.com/noctalia-dev/official-plugins"
+enabled  = true
+
+[[plugins.source]]
+name     = "community"
+kind     = "git"
+location = "https://github.com/noctalia-dev/community-plugins"
+enabled  = true
+
+# Local, read-only source for the dotfiles plugins (Luau ports of todoist / submap-indicator go
+# here). Subdirectories without a plugin.toml — e.g. the old QML todoist — are skipped silently.
+[[plugins.source]]
+name     = "dotfiles"
+kind     = "path"
+location = "~/Workbench/Projects/personal/dotfiles/noctalia/plugins"
+enabled  = true

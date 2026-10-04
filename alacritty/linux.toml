@@ -1,2 +1,7 @@
 [font]
 size = 15.0
+
+# alacritty-graphics-kitty (kitty graphics fork): OMP image thumbnails via kitty placeholders.
+[env]
+PI_FORCE_IMAGE_PROTOCOL = "kitty"
+PI_KITTY_PLACEHOLDERS = "1"

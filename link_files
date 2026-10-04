@@ -59,6 +59,11 @@ if [[ $OSTYPE == 'linux-gnu' ]]; then
   rm -rf $XDG_CONFIG_HOME/waybar
   ln -s $DOTFILES_DIR/waybar $XDG_CONFIG_HOME/waybar
 
+  ### noctalia plugins (additive — noctalia's plugin manager owns this dir)
+  mkdir -p $XDG_CONFIG_HOME/noctalia/plugins
+  rm -rf $XDG_CONFIG_HOME/noctalia/plugins/todoist
+  ln -s $DOTFILES_DIR/noctalia/plugins/todoist $XDG_CONFIG_HOME/noctalia/plugins/todoist
+
 # macos
 elif [[ $OSTYPE == 'darwin'* ]]; then
   

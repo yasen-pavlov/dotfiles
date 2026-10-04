@@ -1,0 +1,82 @@
+{
+  "title": "Keep Awake",
+  "panel": {
+    "title": "Keep Awake",
+    "unlimited": "∞",
+    "off": "Off",
+    "starting": "Starting…",
+    "stopping": "Stopping…",
+    "extend": "+{minutes}m",
+    "remaining_display_on": "{time} remaining · display on",
+    "remaining_display_may_sleep": "{time} remaining · display may sleep",
+    "turn_on": "Turn on",
+    "turn_off": "Turn off",
+    "keep_display_label": "Keep display awake",
+    "keep_display_desc": "When off, the monitor may dim, sleep and lock while the system stays awake",
+    "error": "Error: {message}"
+  },
+  "toast": {
+    "enabled_title": "Keep Awake on",
+    "enabled_desc_full": "{scope} · {label} · display on",
+    "enabled_desc_partial": "{scope} · {label} · display may sleep",
+    "disabled_title": "Keep Awake off",
+    "expired_title": "Keep Awake ended",
+    "extended_title": "Keep Awake extended",
+    "extended_desc": "+{minutes}m",
+    "extend_refused_title": "Keep Awake not extended",
+    "extend_off": "Keep Awake is off",
+    "extend_unlimited": "Already unlimited",
+    "busy": "Keep Awake is busy — try again in a second",
+    "released_reason": "the inhibit holder exited ({reason})",
+    "lost_title": "Keep Awake stopped unexpectedly",
+    "lost_desc": "The inhibit holder went silent; its locks were reclaimed by Noctalia and logind.",
+    "failed_title": "Keep Awake could not start",
+    "partial_gate_title": "Keep Awake: display gate unavailable",
+    "partial_gate_desc": "Running with the logind inhibit only."
+  },
+  "tooltip": {
+    "scope_full": "full — display stays on",
+    "scope_partial": "partial — display may sleep, auto-suspend blocked",
+    "remaining": "Remaining",
+    "until": "Until",
+    "gate": "Display gate",
+    "gate_logind_only": "unavailable — logind inhibit only"
+  },
+  "tile": {
+    "label": "Keep Awake",
+    "label_active": "{remaining} left"
+  },
+  "status": {
+    "off": "off",
+    "line": "{status} · {scope} · {remaining} left · screensaver={screensaver} logind={logind}"
+  },
+  "error": {
+    "missing_dependencies": "python3 and pkill are required",
+    "spawn": "could not start the inhibit holder (stream limit reached)",
+    "holder_timeout": "the inhibit holder did not report within {seconds} s",
+    "holder_released": "the inhibit holder exited ({reason})",
+    "bad_duration": "unrecognised duration \"{text}\""
+  },
+  "settings": {
+    "default_scope": {
+      "label": "Default scope",
+      "description": "partial = system awake, monitor may dim/sleep/lock (auto-suspend is refused); full = every idle behaviour suppressed"
+    },
+    "scope": { "partial": "partial", "full": "full" },
+    "durations": {
+      "label": "Duration choices (minutes)",
+      "description": "One positive integer per entry; shown as tiles in the panel in this order"
+    },
+    "include_unlimited": { "label": "Show ∞ (unlimited) option" },
+    "show_remaining_text": { "label": "Show remaining time beside the bar icon" },
+    "activate_on_left_click": {
+      "label": "Left click re-activates last choice",
+      "description": "Off: left click opens the panel. Right click always turns Keep Awake off; middle click always toggles the last choice."
+    },
+    "quick_extend_minutes": { "label": "Quick-extend (minutes)" },
+    "notify": {
+      "label": "Notify on changes",
+      "description": "Desktop notification when Keep Awake turns on, off, expires or is extended (Noctalia v5 has no plugin toast/OSD API)"
+    }
+  }
+}

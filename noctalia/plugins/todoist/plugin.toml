@@ -1,0 +1,146 @@
+# Todoist — overdue / today / upcoming counts in the bar, and a panel to complete or
+# push tasks to tomorrow without leaving the shell. Luau port of the v4 QML plugin
+# (Main/BarWidget/Panel/Settings.qml); the Python backend scripts/todoist-fetch.py is
+# reused unchanged (it looks up the API token itself via secret-tool).
+#
+# Three entries share the plugin's state channel:
+#   sync  (service)  the only entry that runs the backend: poll loop, complete/push
+#                    actions, the optimistic-action suppression set; publishes state
+#   bar   (widget)   renders the pill from state; left toggles the panel, middle
+#                    forces a refresh, right opens Todoist in the browser
+#   tasks (panel)    renders the three sections from state, sends actions back
+#                    to the service through state
+
+id = "muty/todoist"
+name = "Todoist"
+version = "1.0.0"
+# 24 for the argv form of noctalia.runAsync: the filter setting and task ids are
+# passed to the backend as arguments and must never go through a shell. Everything
+# else used is older: [widget.actions] (14), nowMs (12), closure callbacks (9).
+plugin_api = 24
+author = "muty"
+license = "MIT"
+dependencies = ["python3", "todoist-api-python", "secret-tool", "xdg-open"]
+tags = ["bar", "panel", "productivity", "service"]
+icon = "checklist"
+description = "Todoist tasks in the bar — overdue/today/upcoming counts and a panel to complete or push tasks to tomorrow without leaving the shell."
+
+# Plugin-level settings: shared by the service (poll, filter, row cap), the bar
+# widget (pill toggles, colors, open URL) and the panel (sections, colors, open URL).
+
+[[setting]]
+key = "poll_seconds"
+type = "int"
+label_key = "settings.poll_seconds.label"
+description_key = "settings.poll_seconds.description"
+default = 90
+min = 15
+max = 3600
+
+[[setting]]
+key = "filter"
+type = "string"
+label_key = "settings.filter.label"
+description_key = "settings.filter.description"
+default = ""
+
+[[setting]]
+key = "max_per_section"
+type = "int"
+label_key = "settings.max_per_section.label"
+description_key = "settings.max_per_section.description"
+default = 10
+min = 1
+max = 50
+
+[[setting]]
+key = "show_overdue"
+type = "bool"
+label_key = "settings.show_overdue.label"
+default = true
+
+[[setting]]
+key = "show_today"
+type = "bool"
+label_key = "settings.show_today.label"
+default = true
+
+[[setting]]
+key = "show_upcoming"
+type = "bool"
+label_key = "settings.show_upcoming.label"
+default = true
+
+[[setting]]
+key = "pill_show_icon"
+type = "bool"
+label_key = "settings.pill_show_icon.label"
+default = true
+
+[[setting]]
+key = "pill_show_dots"
+type = "bool"
+label_key = "settings.pill_show_dots.label"
+description_key = "settings.pill_show_dots.description"
+default = true
+
+[[setting]]
+key = "color_overdue"
+type = "color"
+label_key = "settings.color_overdue.label"
+default = "#de4c4a"
+
+[[setting]]
+key = "color_today"
+type = "color"
+label_key = "settings.color_today.label"
+default = "#f49c18"
+
+[[setting]]
+key = "color_upcoming"
+type = "color"
+label_key = "settings.color_upcoming.label"
+default = "#4073d6"
+
+[[setting]]
+key = "open_url"
+type = "string"
+label_key = "settings.open_url.label"
+description_key = "settings.open_url.description"
+default = "https://todoist.com/app/today"
+
+# Headless service: owns every backend call and the suppression set, publishes
+# tasks/counts/last_sync/error/status. `noctalia msg plugin muty/todoist:sync all refresh`
+# forces a poll; `... all dump` logs a one-line status summary.
+[[service]]
+id = "sync"
+entry = "service.luau"
+
+[[widget]]
+id = "bar"
+entry = "bar.luau"
+
+  # Left click toggles the panel — declared as a gesture default so the user can
+  # remap it from the bar's own widget settings. Middle click defaults to
+  # "settings-open-widget" on every widget; "none" frees it so bar.luau's
+  # onMiddleClick (force refresh) fires. Right click stays with the script
+  # (onRightClick opens open_url in the browser).
+  [widget.actions]
+  left = "panel-toggle muty/todoist:tasks"
+  middle = "none"
+
+# Attached to the bar next to the widget, like the v4 panel (allowAttach + openPanel
+# at the widget). Size is host-owned: the v4 panel was 440 logical px wide with a
+# content-driven height; 600 fits the header plus ~14 rows before the list scrolls.
+# No `position`: it only applies to floating panels (the user can still switch the
+# panel to floating from its settings, where the host offers the position choice).
+[[panel]]
+id = "tasks"
+entry = "panel.luau"
+width = 440
+height = 600
+# floating like the v4 panel (ui.panelsAttachedToBar=false); an attached panel inherits the bar's
+# background opacity, which is 0 on this setup and made the panel see-through.
+placement = "floating"
+position = "auto"
+open_near_click = true

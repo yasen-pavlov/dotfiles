@@ -1,0 +1,95 @@
+{
+  "panel": {
+    "title": "Todoist",
+    "summary": "{overdue} overdue · {today} today · {upcoming} upcoming",
+    "summary_clear": "All clear",
+    "loading": "Loading…",
+    "error_prefix": "Error: ",
+    "last_sync": "synced {time}",
+    "last_sync_never": "never synced",
+    "ago_just_now": "just now",
+    "ago_minutes": "{n}m ago",
+    "ago_hours": "{n}h ago",
+    "section_overdue": "Overdue",
+    "section_today": "Today",
+    "section_upcoming": "Upcoming",
+    "empty_overdue": "Nothing overdue.",
+    "empty_today": "Nothing due today.",
+    "empty_upcoming": "Nothing on the horizon.",
+    "more": "+ {n} more",
+    "due_yesterday": "yesterday",
+    "due_days_ago": "{n}d ago",
+    "due_today": "today",
+    "due_tomorrow": "tomorrow",
+    "row_complete": "Mark complete",
+    "row_push_tomorrow": "Push to tomorrow",
+    "footer_open": "Open Todoist",
+    "footer_refresh": "Refresh"
+  },
+  "tooltip": {
+    "header": "Todoist",
+    "line_overdue": "{n} overdue",
+    "line_today": "{n} today",
+    "line_upcoming": "{n} upcoming",
+    "clear": "Inbox zero",
+    "error": "Last sync failed"
+  },
+  "toast": {
+    "completed_title": "Task completed",
+    "rescheduled_title": "Pushed to tomorrow",
+    "error_title": "Todoist error"
+  },
+  "error": {
+    "timeout": "Backend timed out",
+    "truncated": "Backend output was truncated",
+    "parse": "Could not parse backend output",
+    "start": "Could not start the backend (too many processes in flight?)",
+    "exit_code": "Backend exited with code {code}",
+    "action": "The backend reported a failure",
+    "missing_script": "Backend script not found: {path}",
+    "exec": "Could not run {path} (not executable, or python3 unavailable)"
+  },
+  "settings": {
+    "poll_seconds": {
+      "label": "Refresh interval (seconds)",
+      "description": "How often to fetch tasks. Lower = fresher, higher = lighter on the API."
+    },
+    "filter": {
+      "label": "Todoist filter",
+      "description": "Optional filter expression (e.g. `today | overdue`, `@work`). Empty = all active tasks."
+    },
+    "max_per_section": {
+      "label": "Max items per section",
+      "description": "Rows shown per section in the panel; the rest is summarised as \"+ N more\"."
+    },
+    "show_overdue": {
+      "label": "Show overdue section"
+    },
+    "show_today": {
+      "label": "Show today section"
+    },
+    "show_upcoming": {
+      "label": "Show upcoming section"
+    },
+    "pill_show_icon": {
+      "label": "Show icon in bar pill"
+    },
+    "pill_show_dots": {
+      "label": "Show count dots in bar pill",
+      "description": "Colored counts next to the icon — only buckets with > 0 are shown."
+    },
+    "color_overdue": {
+      "label": "Overdue color"
+    },
+    "color_today": {
+      "label": "Today color"
+    },
+    "color_upcoming": {
+      "label": "Upcoming color"
+    },
+    "open_url": {
+      "label": "Open URL",
+      "description": "Where the bar pill's right-click and the panel's open button go in the browser."
+    }
+  }
+}

@@ -1,0 +1,124 @@
+# Keep Awake — Luau (Noctalia v5) port of the v4 QML plugin keep-awake-plus.
+# Served by the "dotfiles" path source (~/Workbench/Projects/personal/dotfiles/noctalia/plugins/keep-awake).
+#
+# Entry ids (type strings for config.toml):
+#   bar widget  "muty/keep-awake:bar"      control-center tile "muty/keep-awake:tile"
+#   panel       "muty/keep-awake:panel"    service / IPC target "muty/keep-awake:service"
+#
+# The service is the only entry that owns state: it spawns scripts/keepawake-hold.py through
+# noctalia.runStream, parses its line protocol, publishes snapshots on the plugin state channel
+# and persists the last choice (pluginDataDir) + the live session ($XDG_RUNTIME_DIR). Bar, tile
+# and panel are pure renderers that send commands back through the state channel.
+
+id = "muty/keep-awake"
+name = "Keep Awake"
+version = "1.0.0"
+# 24 = argv form of noctalia.runAsync (pkill patterns never pass through a shell).
+# Also used, all older: ui closure callbacks (9), nowMs (12), [widget.actions] (14),
+# onEnable/onExit reasons (17), timeFormat (19), require() modules (22).
+plugin_api = 24
+author = "muty"
+license = "MIT"
+icon = "coffee"
+dependencies = ["python3", "python-gobject", "pkill"]
+tags = ["bar", "panel", "service", "shortcut", "system", "idle"]
+description = "Timed keep-awake with partial (system stays up) and full (display too) scopes, quick extend and a persistent last choice."
+
+# ── Plugin-level settings (v4 manifest defaults preserved) ───────────────────
+
+[[setting]]
+key = "default_scope"
+type = "select"
+label_key = "settings.default_scope.label"
+description_key = "settings.default_scope.description"
+default = "partial"
+options = [
+  { value = "partial", label_key = "settings.scope.partial" },
+  { value = "full", label_key = "settings.scope.full" },
+]
+
+# Minutes, as strings: there is no int_list setting type. Non-positive or non-numeric
+# entries are dropped; an empty list falls back to the default.
+[[setting]]
+key = "durations"
+type = "string_list"
+label_key = "settings.durations.label"
+description_key = "settings.durations.description"
+default = ["30", "60", "120", "240", "480"]
+
+[[setting]]
+key = "include_unlimited"
+type = "bool"
+label_key = "settings.include_unlimited.label"
+default = true
+
+[[setting]]
+key = "show_remaining_text"
+type = "bool"
+label_key = "settings.show_remaining_text.label"
+default = true
+
+[[setting]]
+key = "activate_on_left_click"
+type = "bool"
+label_key = "settings.activate_on_left_click.label"
+description_key = "settings.activate_on_left_click.description"
+default = false
+
+[[setting]]
+key = "quick_extend_minutes"
+type = "int"
+label_key = "settings.quick_extend_minutes.label"
+default = 30
+min = 5
+max = 240
+
+# v4 showed in-shell toasts; v5 exposes only desktop notifications to plugins.
+# Error notifications (holder lost / could not start) ignore this flag.
+[[setting]]
+key = "notify"
+type = "bool"
+label_key = "settings.notify.label"
+description_key = "settings.notify.description"
+default = true
+
+# ── Entries ──────────────────────────────────────────────────────────────────
+
+# Owns the session, the holder process and every notification. IPC target:
+#   noctalia msg plugin muty/keep-awake:service all <toggle|on|off|extend|scope|status> [payload]
+[[service]]
+id = "service"
+entry = "service.luau"
+
+[[widget]]
+id = "bar"
+entry = "bar.luau"
+
+  # Left click is decided by the activate_on_left_click setting inside bar.luau (v4 parity),
+  # right click turns the session off, middle click re-activates the last choice — middle
+  # defaults to "settings-open-widget" on every widget, so "none" frees it for onMiddleClick.
+  # Per-instance overrides still win, e.g.
+  #   [widget.keep-awake.actions] left = "plugin muty/keep-awake:service all toggle"
+  [widget.actions]
+  middle = "none"
+
+# Control-center tile: left opens the panel, right turns the session off (v4 parity).
+[[shortcut]]
+id = "tile"
+entry = "tile.luau"
+
+# 320 logical px like the v4 panel; height fits header + 2 rows of duration tiles + scope
+# toggle + action row. Add ~40 px per extra row of duration tiles (3 per row).
+# "attached" per the design; an attached panel inherits the bar's background opacity, which
+# is 0 in this setup (the todoist port went floating for that reason) — if it renders
+# see-through, flip panel_placement to "floating" in Settings > Plugins or here.
+[[panel]]
+id = "panel"
+entry = "panel.luau"
+width = 320
+height = 310
+placement = "floating"   # attached panels inherit the bar's 0 background opacity here (see-through); v4 panels were not attached
+# Pinned: the panel is mostly opened from the control-center tile (the pill is hidden while off), and tile/IPC
+# opens carry no click anchor in v5 (they fall back to bar-centre). top_right keeps it next to the pill/CC button.
+position = "top_right"
+open_near_click = true

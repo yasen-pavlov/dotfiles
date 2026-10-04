@@ -1,5 +1,5 @@
 return {
-	terminal = "foot",
+	terminal = "alacritty",
 	fileManager = "dolphin",
 	menu = "rofi -show drun",
 	browser = "firefox",

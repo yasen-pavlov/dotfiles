@@ -1,9 +1,6 @@
 {
   "spacing": 8,
-  "modules-left": [
-    "hyprland/workspaces",
-    "hyprland/window"
-  ],
+  "modules-left": ["hyprland/workspaces", "hyprland/window"],
   "modules-center": [],
   "modules-right": [
     "mpris",
@@ -62,11 +59,7 @@
     "format": "{volume}% {icon} ",
     "format-muted": " ",
     "on-click": "pwvucontrol",
-    "format-icons": [
-      "",
-      "",
-      ""
-    ]
+    "format-icons": ["", "", ""]
   },
   "idle_inhibitor": {
     "format": "{icon}",
@@ -85,22 +78,18 @@
   "cpu": {
     "format": "{usage}%  ",
     "tooltip": false,
-    "on-click": "hyprctl dispatch 'hl.dsp.exec_cmd([[ [float; size 1400 1000] foot -e sh -c \"btop\" ]])'"
+    "on-click": "hyprctl dispatch 'hl.dsp.exec_cmd([[ [float; size 1400 1000] alacritty -e sh -c \"btop\" ]])'"
   },
   "memory": {
     "format": "{}%  ",
-    "on-click": "hyprctl dispatch 'hl.dsp.exec_cmd([[ [float; size 1400 1000] foot -e sh -c \"btop\" ]])'"
+    "on-click": "hyprctl dispatch 'hl.dsp.exec_cmd([[ [float; size 1400 1000] alacritty -e sh -c \"btop\" ]])'"
   },
   "temperature": {
     "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
     "critical-threshold": 80,
     "format": "{temperatureC}°C {icon}",
-    "on-click": "hyprctl dispatch 'hl.dsp.exec_cmd([[ [float; size 1400 1000] foot -e sh -c \"btop\" ]])'",
-    "format-icons": [
-      " ",
-      " ",
-      " "
-    ]
+    "on-click": "hyprctl dispatch 'hl.dsp.exec_cmd([[ [float; size 1400 1000] alacritty -e sh -c \"btop\" ]])'",
+    "format-icons": [" ", " ", " "]
   },
   "custom/power": {
     "class": "power",

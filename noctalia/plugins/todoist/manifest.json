@@ -1,0 +1,33 @@
+{
+  "id": "todoist",
+  "name": "Todoist",
+  "version": "0.1.0",
+  "minNoctaliaVersion": "3.6.0",
+  "author": "muty",
+  "license": "MIT",
+  "description": "Todoist tasks in the bar — overdue/today/upcoming counts and a panel to complete or push tasks to tomorrow without leaving the shell.",
+  "tags": ["Bar", "Panel", "Productivity"],
+  "entryPoints": {
+    "main": "Main.qml",
+    "barWidget": "BarWidget.qml",
+    "panel": "Panel.qml",
+    "settings": "Settings.qml"
+  },
+  "dependencies": { "plugins": [] },
+  "metadata": {
+    "defaultSettings": {
+      "pollSeconds": 90,
+      "filter": "",
+      "maxPerSection": 10,
+      "showOverdue": true,
+      "showToday": true,
+      "showUpcoming": true,
+      "pillShowDots": true,
+      "pillShowIcon": true,
+      "colorOverdue": "#de4c4a",
+      "colorToday": "#f49c18",
+      "colorUpcoming": "#4073d6",
+      "openUrl": "https://todoist.com/app/today"
+    }
+  }
+}
