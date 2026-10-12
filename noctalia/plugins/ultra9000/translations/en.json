@@ -1,0 +1,143 @@
+{
+  "app": {
+    "name": "Ultra 9000"
+  },
+  "settings": {
+    "command": {
+      "label": "Command",
+      "description": "The Ultra 9000 executable. Used to start the app and, as `<command> ctl …`, to talk to it."
+    },
+    "hide_when_not_running": {
+      "label": "Hide when Ultra 9000 isn't running",
+      "description": "Remove the bar capsule while the app is closed instead of showing the dimmed mark."
+    }
+  },
+  "age": {
+    "now": "<1m",
+    "minutes": "{n}m",
+    "hours": "{n}h",
+    "days": "{n}d"
+  },
+  "pill": {
+    "working": "working",
+    "starting": "starting",
+    "on_job": "on job {age}",
+    "on_jobs": "on {n} jobs {age}",
+    "needs_you": "needs you",
+    "your_turn": "your turn",
+    "error": "error",
+    "exited": "exited"
+  },
+  "sub": {
+    "exit": "exit {code}"
+  },
+  "tooltip": {
+    "live": "{n} live",
+    "live_in": "{n} live in {p} projects",
+    "not_running": "not running",
+    "protocol": "update the app or the plugin",
+    "kept": "Saved conversations are kept; start the app to resume them.",
+    "needs_you": "needs you",
+    "question": "question",
+    "error": "error",
+    "working": "working",
+    "on_job": "on job",
+    "jobs": "{n} jobs",
+    "your_turn": "your turn",
+    "unread": "{n} unread",
+    "seen": "{n} seen",
+    "shells": "shells",
+    "shell_in": "{cmd} in {project}",
+    "busy": "{n} busy",
+    "more": "+{n}",
+    "middle": "middle-click",
+    "jump_to": "jump to {title}",
+    "show": "show Ultra 9000",
+    "hide": "hide Ultra 9000",
+    "start": "start Ultra 9000",
+    "starting": "starting…",
+    "connecting": "connecting…"
+  },
+  "panel": {
+    "summary": "{live} live · {projects} projects",
+    "summary_one": "{live} live · 1 project",
+    "nothing_running": "Nothing running",
+    "not_running_short": "Not running",
+    "connecting": "Connecting…",
+    "jump": "Jump",
+    "jump_tooltip": "Jump to {title} (j)",
+    "nothing_waiting": "Nothing is waiting",
+    "add_tooltip": "New agent in {project} (n) · right-click for more",
+    "project_add_tooltip": "New agent in {project} · right-click for more",
+    "hide_tooltip": "Hide Ultra 9000 (h) · right-click for more",
+    "show_tooltip": "Show Ultra 9000 (h) · right-click for more",
+    "row_actions": "Actions · right-click for the menu",
+    "pinned_nothing": "Pinned · nothing running",
+    "more_need": "{n} more needs you",
+    "cancel": "Cancel",
+    "empty_title": "No live items",
+    "empty_body": "Saved conversations are in the palette — resume one, or start something new.",
+    "new_agent": "New agent",
+    "open_palette": "Open palette",
+    "not_running_title": "Ultra 9000 is not running",
+    "not_running_body": "Saved conversations are kept. Start the app to see live items and resume work.",
+    "start": "Start Ultra 9000",
+    "start_note": "Runs {command} — the plugin's command setting. Nothing is resumed unless the app's own “resume last set” says so.",
+    "protocol_title": "Update Ultra 9000 or the plugin",
+    "protocol_body": "The running app doesn't speak this plugin's control protocol, so the plugin shows nothing rather than guess.",
+    "starting": "Starting…"
+  },
+  "hint": {
+    "show": "show",
+    "waiting": "waiting",
+    "new": "new",
+    "close": "close",
+    "row": "row",
+    "start": "start",
+    "close_panel": "close",
+    "new_agent": "new agent",
+    "palette": "palette"
+  },
+  "confirm": {
+    "question": "Close “{title}”?",
+    "close_button": "Close  w",
+    "agent_working": "{tool} is working. Its conversation stays resumable from the palette.",
+    "agent_needs_you": "{tool} is waiting for you. Its conversation stays resumable from the palette.",
+    "foreground_job": "{command} is still running in this shell.",
+    "neovim": "Neovim may have unsaved changes.",
+    "unmonitored_agent": "Ultra 9000 can't tell whether this agent is busy.",
+    "generic": "The app asks before closing this item."
+  },
+  "menu": {
+    "header": "Ultra 9000 · {n} live",
+    "header_off": "Ultra 9000 · not running",
+    "show_in_app": "Show in Ultra 9000",
+    "new_agent_in": "New agent in {project}",
+    "new_terminal_here": "New terminal here",
+    "new_neovim_here": "New Neovim here",
+    "new_agent": "New agent",
+    "new_terminal": "New terminal",
+    "new_neovim": "New Neovim",
+    "jump": "Jump to waiting",
+    "jump_to": "Jump to {title}",
+    "close": "Close…",
+    "palette": "Open palette",
+    "palette_for_project": "Open palette for this project",
+    "show_app": "Show Ultra 9000",
+    "hide_app": "Hide Ultra 9000",
+    "quit": "Quit Ultra 9000…",
+    "new_agent_in_header": "New agent in",
+    "new_terminal_in_header": "New terminal in",
+    "back": "Back",
+    "header_starting": "Ultra 9000 · starting…",
+    "header_protocol": "Ultra 9000 · update the app or the plugin"
+  },
+  "launcher": {
+    "new_agent": "New agent in {project}",
+    "new_terminal": "New terminal in {project}",
+    "new_neovim": "New Neovim in {project}",
+    "start_subtitle": "Runs {command}",
+    "starting": "Ultra 9000 is starting…",
+    "protocol": "Ultra 9000 is running, but this plugin can't talk to it"
+  }
+}

@@ -1,0 +1,98 @@
+# Ultra 9000 — the agent harness's sidebar in the shell: one bar capsule (who needs you,
+# what's working), a panel that mirrors the app's sidebar, a bar menu and a /u9 launcher
+# provider. Design: ultra_9000 docs/design/noctalia-plugin (approved canvas, boards 01–09).
+#
+# Every entry is a view plus command sender. The app is the authority: the plugin never
+# sorts, never decides what is waiting, never confirms on the app's behalf, never reads
+# agent output, and never notifies by itself.
+#
+#   link  (service)   runs `<command> ctl watch --client noctalia` while the app has a
+#                     live control socket; publishes state "link" = {status, snapshot}
+#   bar   (widget)    the capsule; left = panel, middle = jump / show-hide / start,
+#                     right = menu panel
+#   panel (panel)     the sidebar mirror with keyboard control (board 07 keys)
+#   menu  (panel)     the bar's right-click menu (bar widgets have no native menu API)
+#   u9    (launcher)  /u9: live items → select, "New … in <project>" → new item, Start
+#
+# Commands go to the app as argv `<command> ctl <type> '<json>'` (never through a shell).
+
+id = "muty/ultra9000"
+name = "Ultra 9000"
+version = "0.1.0"
+# 32: container tooltips (row title tooltips). Also used: get-color 31, panel layer 30,
+# panel context menus 28, getSetting 26, argv runAsync 24, require 22, frame ticks 18,
+# service lifecycle 17, widget gesture defaults 14, capture keys 13, nowMs 12.
+plugin_api = 32
+author = "muty"
+license = "MIT"
+dependencies = ["ultra9000"]
+tags = ["bar", "panel", "launcher", "service", "development"]
+icon = "robot"
+description = "Ultra 9000 in the shell: who needs you and what's working in the bar, the app's sidebar one click away."
+
+[[setting]]
+key = "command"
+type = "string"
+label_key = "settings.command.label"
+description_key = "settings.command.description"
+default = "ultra9000"
+
+[[setting]]
+key = "hide_when_not_running"
+type = "bool"
+label_key = "settings.hide_when_not_running.label"
+description_key = "settings.hide_when_not_running.description"
+default = false
+
+[[service]]
+id = "link"
+entry = "service.luau"
+
+[[widget]]
+id = "bar"
+entry = "bar.luau"
+
+  # Left opens the panel near the capsule; middle is freed from the built-in
+  # "open widget settings" so onMiddleClick (jump / show-hide / start) fires.
+  [widget.actions]
+  left = "panel-toggle muty/ultra9000:panel"
+  middle = "none"
+
+# Board 05: 360 × 600 base (432 × 720 at ui_scale 1.2), floating under the click.
+# capture_keys: board 07 keys, plus the same physical keys on the user's Bulgarian
+# phonetic layout — v5.2.1 matches plain chords by keysym, not by physical key.
+[[panel]]
+id = "panel"
+entry = "panel.luau"
+width = 360
+height = 600
+placement = "floating"
+position = "auto"
+open_near_click = true
+# Keys work as soon as the panel opens (Super+U, board 07), not only after a click into it.
+keyboard_focus = "exclusive"
+capture_keys = [
+  "Up", "Down", "Home", "End", "Return", "KP_Enter", "Delete",
+  "1", "2", "3", "4", "5", "6", "7", "8", "9",
+  "j", "n", "t", "e", "w", "o", "h",
+  "Cyrillic_shorti", "Cyrillic_en", "Cyrillic_te", "Cyrillic_ie", "Cyrillic_ve", "Cyrillic_o", "Cyrillic_ha",
+]
+
+# The bar's right-click menu (board 07), drawn like Noctalia's context menu: a small
+# floating panel at the capsule. Height fits the longest menu (header, 6 entries, 2 separators).
+[[panel]]
+id = "menu"
+entry = "menu.luau"
+width = 230
+height = 262
+placement = "floating"
+position = "auto"
+open_near_click = true
+keyboard_focus = "exclusive"
+capture_keys = ["Up", "Down", "Home", "End", "Return", "KP_Enter", "Left", "Right", "BackSpace"]
+
+[[launcher_provider]]
+id = "u9"
+entry = "launcher.luau"
+prefix = "u9"
+glyph = "robot"
