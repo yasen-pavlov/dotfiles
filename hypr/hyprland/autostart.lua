@@ -33,6 +33,7 @@ hl.on("hyprland.start", function()
 	-- rewriting ~/.config/autostart/1password.desktop and dropping the
 	-- --disable-features flag, washing out colours on cm=srgb 10-bit).
 	hl.exec_cmd("1password --silent --disable-features=WaylandWpColorManagerV1")
-	hl.exec_cmd("sleep 5 && onedrivegui")
+	-- onedrive: runs as user unit onedrive-yasen.service (MemoryMax=2G), not via
+	-- onedrivegui auto_sync — the 2.5.12 monitor leaked to ~20 GiB RSS.
 	hl.exec_cmd("QT_QPA_PLATFORM=xcb synology-drive autostart")
 end)
