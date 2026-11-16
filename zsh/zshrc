@@ -15,3 +15,6 @@ source $DOTFILES_DIR/zsh/aliases
 
 ### profiling end (comment out to disable)
 #zprof
+
+# Added by sonarqube-cli installer
+export PATH="$HOME/.local/share/sonarqube-cli/bin:$PATH"
