@@ -14,6 +14,11 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("hyprctl plugin load $HOME/.local/share/hyprland-plugins/cua/libs/cua-driver/hyprland-plugin/build/cua-hyprland-plugin.so")
 	hl.exec_cmd("hyprctl plugin load $HOME/.local/share/hyprland-plugins/hyprcapture/build-upstream/libhyprcapture.so")
 	hl.exec_cmd("hyprctl plugin load $HOME/.local/share/hyprland-plugins/hyprexpo/hyprexpo.so")
+	-- Cua Driver daemon: always on, so agent sessions never start or stop it (one
+	-- socket is shared by all of them) and the session accessibility switch
+	-- (org.a11y.Status IsEnabled, on only while it runs) is on before Firefox starts,
+	-- which is what gives Firefox its accessibility tree. Log: $XDG_RUNTIME_DIR/cua-driver.log
+	hl.exec_cmd("env CUA_DRIVER_RS_ENABLE_WAYLAND=1 CUA_TELEMETRY_ENABLED=0 DO_NOT_TRACK=1 $HOME/.local/bin/cua-driver serve --no-overlay > $XDG_RUNTIME_DIR/cua-driver.log 2>&1")
 	-- plugin.* config keys are eagerly validated at the initial parse, which
 	-- happens before hyprpm reload runs above — so every cold start logs them
 	-- as "unknown config key" and the error overlay sticks for the session.
