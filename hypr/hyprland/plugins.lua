@@ -3,6 +3,10 @@
 
 hl.config({
 	plugin = {
+		-- Cua Driver input plugin: opens its same-user input sockets on config reload.
+		-- Remove together with the load line in autostart.lua.
+		cua = { enabled = true },
+
 		hyprcapture = {
 			-- Wrapper unsets QT_SCALE_FACTOR (overlay sizing) and re-sets
 			-- QT_QPA_PLATFORMTHEME (plugin's spawn allowlist strips it, breaking dark mode).

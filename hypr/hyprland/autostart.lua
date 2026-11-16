@@ -1,10 +1,18 @@
 hl.on("hyprland.start", function()
-	-- Both plugins are LOCAL builds (hand-ported to Hyprland-git), loaded directly.
-	-- hyprexpo is a local port until sandwichfarm/hyprexpo updates upstream for the
-	-- new Hyprland API (then revert to hyprpm). After a Hyprland update, rebuild:
-	--   hyprcapture: cmake --build ~/.local/share/hyprland-plugins/hyprcapture/build-v055
-	--   hyprexpo:    ~/.local/share/hyprland-plugins/hyprexpo/rebuild.sh
-	hl.exec_cmd("hyprctl plugin load $HOME/.local/share/hyprland-plugins/hyprcapture/build-v055/libhyprcapture.so")
+	-- All plugins are LOCAL builds, loaded directly. Rebuild after a Hyprland update
+	-- with ~/Workbench/Scripts/update-hypr-plugins:
+	--   cua:         Cua Driver input plugin (agent seats for background input), pinned
+	--                release tag + local port commit (branch port-hyprland-git), cmake build/.
+	--                Its agent seats appear when it loads with plugin.cua.enabled set
+	--                (plugins.lua); apps started before that can't take background input.
+	--                exec_cmd is asynchronous, so the apps started below race this load.
+	--                None of them is a background-input target (layer shell, Electron,
+	--                XWayland, tray). One that is must be started only after
+	--                `hyprctl -j cua:status` reports transport.ready, not from a bare exec_cmd.
+	--   hyprcapture: upstream master (branch upstream-master), cmake build-upstream/
+	--   hyprexpo:    upstream master + local 0.57 port commits (branch port-057), make all
+	hl.exec_cmd("hyprctl plugin load $HOME/.local/share/hyprland-plugins/cua/libs/cua-driver/hyprland-plugin/build/cua-hyprland-plugin.so")
+	hl.exec_cmd("hyprctl plugin load $HOME/.local/share/hyprland-plugins/hyprcapture/build-upstream/libhyprcapture.so")
 	hl.exec_cmd("hyprctl plugin load $HOME/.local/share/hyprland-plugins/hyprexpo/hyprexpo.so")
 	-- plugin.* config keys are eagerly validated at the initial parse, which
 	-- happens before hyprpm reload runs above — so every cold start logs them
