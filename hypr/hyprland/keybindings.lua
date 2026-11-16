@@ -85,7 +85,7 @@ return function(p)
 		-- lock the active stack (stop it swallowing new windows)
 		hl.bind(
 			"Space",
-			hl.dsp.group.lock_active({ action = "toggle" }),
+			hl.dsp.group.lock({ action = "toggle" }),
 			{ description = "Group: lock / unlock stack" }
 		)
 
