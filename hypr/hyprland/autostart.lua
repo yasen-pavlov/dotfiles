@@ -11,7 +11,11 @@ hl.on("hyprland.start", function()
 	--                `hyprctl -j cua:status` reports transport.ready, not from a bare exec_cmd.
 	--   hyprcapture: upstream master (branch upstream-master), cmake build-upstream/
 	--   hyprexpo:    upstream master + local 0.57 port commits (branch port-057), make all
-	hl.exec_cmd("hyprctl plugin load $HOME/.local/share/hyprland-plugins/cua/libs/cua-driver/hyprland-plugin/build/cua-hyprland-plugin.so")
+	-- The Cua module can never be unloaded (-z nodelete): a stale build loaded here
+	-- would refuse itself but stay mapped, and a rebuilt one could then not be loaded
+	-- until the next login. So load it only when it was built for the installed
+	-- Hyprland; update-hypr-plugins writes that stamp and loads it otherwise.
+	hl.exec_cmd("cmp -s /usr/include/hyprland/src/version.h $HOME/.local/share/hyprland-plugins/cua/libs/cua-driver/hyprland-plugin/build/built-for-version.h && hyprctl plugin load $HOME/.local/share/hyprland-plugins/cua/libs/cua-driver/hyprland-plugin/build/cua-hyprland-plugin.so")
 	hl.exec_cmd("hyprctl plugin load $HOME/.local/share/hyprland-plugins/hyprcapture/build-upstream/libhyprcapture.so")
 	hl.exec_cmd("hyprctl plugin load $HOME/.local/share/hyprland-plugins/hyprexpo/hyprexpo.so")
 	-- Cua Driver daemon: always on, so agent sessions never start or stop it (one
