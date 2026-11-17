@@ -169,6 +169,7 @@ end    = [
   "volume",
   "brightness",
   "muty/keep-awake:bar",                 # v4 plugin:keep-awake-plus → Luau port (timed, partial/full scope)
+  "muty/borg-backup:bar",                # nightly borg backup: progress while running, warning when failed/stale, hidden otherwise
   "control-center",
 ]
 
@@ -478,7 +479,7 @@ calendars = [
 [plugins]
 # v4: plugins.autoUpdate=false (v5 default "all" = background git pulls at startup and every 6 h).
 auto_update = "none"
-enabled     = ["kenn/keybind-cheatsheet", "muty/submap-indicator", "muty/todoist", "muty/keep-awake"]   # community + dotfiles (path source below)
+enabled     = ["kenn/keybind-cheatsheet", "muty/submap-indicator", "muty/todoist", "muty/keep-awake", "muty/borg-backup"]   # community + dotfiles (path source below)
 
 # Declaring ANY [[plugins.source]] suppresses the built-in defaults, so official + community are
 # restated here (same name + location as the defaults, so Noctalia still treats them as built-in).

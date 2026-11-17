@@ -1,0 +1,79 @@
+# Borg Backup — bar pill + panel for the nightly borg-backup.service.
+# Served by the "dotfiles" path source.
+#
+# Entry ids (type strings for config.toml):
+#   bar widget  "muty/borg-backup:bar"      panel  "muty/borg-backup:panel"
+#   service / IPC target "muty/borg-backup:service"
+#
+# The service is the only entry that reads files or runs commands: it polls the two JSON
+# files the backup script publishes (README "Status files"), asks systemctl for the next
+# timer elapse and publishes one snapshot on the plugin state channel. Bar and panel are
+# pure renderers.
+
+id = "muty/borg-backup"
+name = "Borg Backup"
+version = "1.0.0"
+# 24 = argv form of noctalia.runAsync (systemctl is never run through a shell).
+# Also used, all older: readFileAsync (23), require() modules (22), timeFormat (19),
+# [widget.actions] (14).
+plugin_api = 24
+author = "muty"
+license = "MIT"
+icon = "database-export"
+dependencies = ["systemctl"]
+tags = ["bar", "panel", "service", "system", "backup"]
+description = "Shows a bar pill with progress while the nightly borg backup runs, a warning when the last run failed or the last archive is old, and a panel with details."
+
+# ── Plugin-level settings ────────────────────────────────────────────────────
+
+# The two paths exist so the plugin can be tested against fixture files.
+[[setting]]
+key = "status_file"
+type = "string"
+label_key = "settings.status_file.label"
+description_key = "settings.status_file.description"
+default = "/run/borg-backup/status.json"
+
+[[setting]]
+key = "state_file"
+type = "string"
+label_key = "settings.state_file.label"
+description_key = "settings.state_file.description"
+default = "/var/lib/borg-backup/last-run.json"
+
+[[setting]]
+key = "stale_hours"
+type = "int"
+label_key = "settings.stale_hours.label"
+description_key = "settings.stale_hours.description"
+default = 48
+min = 1
+max = 8760
+
+# ── Entries ──────────────────────────────────────────────────────────────────
+
+# Polls the files, publishes the "borg" snapshot. IPC:
+#   noctalia msg plugin muty/borg-backup:service all <refresh|status>
+[[service]]
+id = "service"
+entry = "service.luau"
+
+# Hidden while idle; running / warning pill otherwise.
+[[widget]]
+id = "bar"
+entry = "bar.luau"
+
+  # Left click toggles the panel — a gesture default, so it can be remapped per instance.
+  [widget.actions]
+  left = "panel-toggle muty/borg-backup:panel"
+
+# Floating: an attached panel inherits the bar's background opacity, which is 0 in this
+# setup (see-through). Height fits the tallest layout (a failed run with both warnings).
+[[panel]]
+id = "panel"
+entry = "panel.luau"
+width = 340
+height = 460
+placement = "floating"
+position = "top_right"
+open_near_click = true

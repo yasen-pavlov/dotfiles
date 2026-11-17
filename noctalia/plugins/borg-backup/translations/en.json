@@ -1,0 +1,116 @@
+{
+  "bar": {
+    "running": "Backup",
+    "running_percent": "Backup {percent}%",
+    "failed": "Backup failed",
+    "interrupted": "Backup interrupted",
+    "no_backup": "No backup yet",
+    "days_old": "Backup {n}d old",
+    "hours_old": "Backup {n}h old"
+  },
+  "tooltip": {
+    "stage": "Stage",
+    "elapsed": "Elapsed",
+    "files": "Files",
+    "files_of": "{n} / {total}",
+    "last_run": "Last run",
+    "last_archive": "Last archive",
+    "value_when": "{value} · {when}",
+    "none": "none"
+  },
+  "stage": {
+    "snapshot": "Snapshot",
+    "create": "Backing up",
+    "prune": "Pruning",
+    "cleanup": "Cleaning up",
+    "unknown": "Working"
+  },
+  "result": {
+    "success": "Succeeded",
+    "failed": "Failed",
+    "interrupted": "Interrupted",
+    "interrupted_implicit": "Interrupted (ended without a final status)",
+    "other": "Unknown ({result})"
+  },
+  "number": {
+    "thousands_sep": ","
+  },
+  "duration": {
+    "seconds": "{s}s",
+    "minutes": "{m}m {s}s",
+    "hours": "{h}h {m}m"
+  },
+  "time": {
+    "just_now": "just now",
+    "minutes_ago": "{n} min ago",
+    "hours_ago": "{n} h ago",
+    "days_ago": "{n} d ago",
+    "now": "now",
+    "in_minutes": "in {n} min",
+    "in_hours": "in {n} h",
+    "in_days": "in {n} d",
+    "date_time": "{date}, {time}",
+    "relative_absolute": "{relative} · {absolute}"
+  },
+  "panel": {
+    "title": "Borg Backup",
+    "loading": "Waiting for the backup service…",
+    "unknown": "unknown",
+    "status_running": "In progress · {stage}",
+    "status_failed": "Last run failed",
+    "status_interrupted": "Last run interrupted",
+    "status_stale": "Last archive {ago}",
+    "status_no_archive": "No backup yet",
+    "status_ok": "Up to date · last archive {ago}",
+    "status_no_state": "No backup status available",
+    "percent_estimate": "{percent}% (estimate)",
+    "estimate_note": "Estimate: files processed relative to the previous archive's file count",
+    "caption_snapshot": "Taking filesystem snapshots",
+    "caption_create_no_baseline": "No estimate: there is no previous archive to compare with",
+    "caption_prune": "Archive written · removing old archives",
+    "caption_cleanup": "Removing snapshots and mounts",
+    "caption_unknown": "Working",
+    "files": "Files",
+    "files_of": "{n} of ~{total}",
+    "processed": "Processed",
+    "new_data": "New data",
+    "elapsed": "Elapsed",
+    "previous_duration": "Previous run",
+    "last_run": "Last run",
+    "result": "Result",
+    "ended": "Ended",
+    "started": "Started",
+    "ended_in": "Stopped during",
+    "exit_code": "Exit code",
+    "archive_written": "The archive of this run was written before it ended.",
+    "last_archive": "Last archive",
+    "created": "Created",
+    "size": "Size",
+    "duration": "Duration",
+    "no_archive": "No archive recorded yet.",
+    "no_state": "No state file at {path}. The backup script has not published a status yet.",
+    "next_run": "Next run",
+    "next_pending": "…"
+  },
+  "warn": {
+    "failed": "The last run failed before an archive was written.",
+    "interrupted": "The last run was interrupted before an archive was written.",
+    "implicit": "The last run ended without reporting a result (killed or power loss) before an archive was written.",
+    "stale": "The last archive is older than {hours} h (created {ago}).",
+    "no_archive": "No successful archive is recorded."
+  },
+  "settings": {
+    "status_file": {
+      "label": "Live status file",
+      "description": "JSON written by the backup script while a run is in progress"
+    },
+    "state_file": {
+      "label": "Last-run state file",
+      "description": "JSON with the last run's result and the last successful archive"
+    },
+    "stale_hours": {
+      "label": "Warn when the last archive is older than (hours)",
+      "description": "The bar shows a warning once the newest successful archive is older than this"
+    }
+  }
+}
