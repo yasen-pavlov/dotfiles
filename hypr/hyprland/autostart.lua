@@ -1,4 +1,10 @@
 hl.on("hyprland.start", function()
+	-- uwsm waits ~30 s for WAYLAND_DISPLAY and HYPRLAND_INSTANCE_SIGNATURE in the
+	-- systemd user environment and tears the session down if they never appear.
+	-- Since Hyprland 9927f2eb8 the compositor no longer exports them when it runs
+	-- as a systemd unit (which is how uwsm runs it), so do it the uwsm way. Skipped
+	-- when a session already exported them, i.e. in a nested Hyprland.
+	hl.exec_cmd("systemctl --user show-environment | grep -q '^WAYLAND_DISPLAY=' || uwsm finalize")
 	-- All plugins are LOCAL builds, loaded directly. Rebuild after a Hyprland update
 	-- with ~/Workbench/Scripts/update-hypr-plugins:
 	--   cua:         Cua Driver input plugin (agent seats for background input), pinned
