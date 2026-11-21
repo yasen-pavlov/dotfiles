@@ -30,9 +30,13 @@ Three sections (Overdue / Today / Upcoming) with one row per task:
 
 ## Requirements
 
-- Python 3 with the `todoist-api-python` package available on the system
-  interpreter. (`pacman -S python-todoist-api-python` on Arch, or
-  `pip install todoist-api-python` in a venv that `python3` resolves to.)
+- [`uv`](https://docs.astral.sh/uv/) (`pacman -S uv` on Arch). The backend is a
+  uv script: `todoist-api-python` is pinned in its header and installed into
+  uv's cache on first run, so no system Python package is needed.
+  Every dependency is frozen with hashes in `scripts/todoist-fetch.py.lock`,
+  and the script refuses to run when the header and the lock disagree; after
+  changing the header, regenerate it with
+  `uv lock --script scripts/todoist-fetch.py`.
 - A Todoist API token stored in libsecret under the attribute
   `uuid=todoist_api_token`:
 

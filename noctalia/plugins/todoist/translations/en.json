@@ -47,7 +47,7 @@
     "exit_code": "Backend exited with code {code}",
     "action": "The backend reported a failure",
     "missing_script": "Backend script not found: {path}",
-    "exec": "Could not run {path} (not executable, or python3 unavailable)"
+    "exec": "Could not run {path} (not executable, or uv unavailable)"
   },
   "settings": {
     "poll_seconds": {

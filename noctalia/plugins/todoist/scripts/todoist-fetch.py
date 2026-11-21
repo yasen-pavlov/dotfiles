@@ -1,4 +1,11 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --quiet --locked --script
+# /// script
+# requires-python = ">=3.11"
+# dependencies = ["todoist-api-python==4.0.1"]
+# ///
+# Runs in uv's own cached environment, not the system site-packages: the AUR
+# python-dataclass-wizard 1.0.0 dropped JSONPyWizard, which todoist-api-python
+# (pinned upstream to dataclass-wizard<1.0) still imports.
 """
 Backend for the noctalia-todoist plugin.
 
